@@ -15,6 +15,29 @@ QtGuiApplication {
     ]
 
     files: [
+        "accessportal.cpp",
+        "accessportal.h",
+        "appchooserportal.cpp",
+        "appchooserportal.h",
+        "desktopportal.cpp",
+        "desktopportal.h",
+        "emailportal.cpp",
+        "emailportal.h",
+        "filechooserportal.cpp",
+        "filechooserportal.h",
+        "inhibitportal.cpp",
+        "inhibitportal.h",
+        "logging.cpp",
+        "logging_p.h",
+        "main.cpp",
+        "notificationportal.cpp",
+        "notificationportal.h",
+        "printportal.cpp",
+        "printportal.h",
+        "screencastportal.cpp",
+        "screencastportal.h",
+        "screenshotportal.cpp",
+        "screenshotportal.h",
     ]
 
     Group {
