@@ -23,6 +23,11 @@ And the following modules:
  * [qbs](http://code.qt.io/cgit/qbs/qbs.git) >= 1.9.0
  * [qbs-shared](https://github.com/lirios/qbs-shared.git) >= 1.2.0
 
+Runtime dependencies:
+
+ * [flatpak](https://github.com/flatpak/flatpak)
+ * [xdg-desktop-portal](https://github.com/flatpak/xdg-desktop-portal)
+
 ## Installation
 
 Qbs is a new build system that is much easier to use compared to qmake or CMake.
