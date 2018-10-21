@@ -21,8 +21,13 @@
  * $END_LICENSE$
  ***************************************************************************/
 
+#include <QQmlApplicationEngine>
+#include <QQmlContext>
+
 #include "appchooserportal.h"
+#include "implementation/appsmodel.h"
 #include "logging_p.h"
+#include "quickdialog.h"
 
 AppChooserPortal::AppChooserPortal(QObject *parent)
     : QDBusAbstractAdaptor(parent)
@@ -42,4 +47,24 @@ uint AppChooserPortal::ChooseApplication(const QDBusObjectPath &handle,
     qCDebug(lcAppChooser) << "    parent_window: " << parent_window;
     qCDebug(lcAppChooser) << "    choices: " << choices;
     qCDebug(lcAppChooser) << "    options: " << options;
+
+    auto appsModel = new AppsModel(this);
+    appsModel->populate(choices, app_id);
+
+    QQmlApplicationEngine engine(QLatin1String("qrc:/qml/AppChooserDialog.qml"));
+    engine.rootContext()->setContextProperty(QLatin1String("appsModel"), appsModel);
+    QObject *topLevel = engine.rootObjects().at(0);
+    QuickDialog *dialog = qobject_cast<QuickDialog *>(topLevel);
+    if (dialog->exec()) {
+        results.insert(QLatin1String("choice"), topLevel->property("selectedAppId").toString());
+        dialog->close();
+        dialog->deleteLater();
+        appsModel->deleteLater();
+        return 0;
+    }
+
+    dialog->deleteLater();
+    appsModel->deleteLater();
+
+    return 1;
 }

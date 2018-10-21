@@ -23,9 +23,11 @@
 
 #include <QDBusConnection>
 #include <QGuiApplication>
+#include <QQmlComponent>
 
 #include "desktopportal.h"
 #include "logging_p.h"
+#include "quickdialog.h"
 
 #define TR(x) QT_TRANSLATE_NOOP("Command line parser", QStringLiteral(x))
 
@@ -41,6 +43,9 @@ int main(int argc, char *argv[])
     app.setFallbackSessionManagementEnabled(false);
 #endif
     app.setQuitOnLastWindowClosed(false);
+
+    // Register QML types
+    qmlRegisterType<QuickDialog>("io.liri.Portal", 1, 0, "QuickDialog");
 
     // Register service
     QDBusConnection sessionBus = QDBusConnection::sessionBus();
