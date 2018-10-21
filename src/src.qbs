@@ -5,14 +5,18 @@ QtGuiApplication {
     targetName: "xdg-desktop-portal-liri"
 
     Depends { name: "lirideployment" }
-    Depends { name: "Qt"; submodules: ["core", "dbus", "printsupport"] }
+    Depends { name: "Qt"; submodules: ["core", "dbus", "printsupport", "qml", "quick"] }
     Depends { name: "LiriNotifications" }
+    //Depends { name: "LiriXdg" }
 
     cpp.defines: [
         'VERSION="' + project.version + '"',
         "QT_NO_CAST_FROM_ASCII",
         "QT_NO_CAST_TO_ASCII"
     ]
+
+    Qt.core.resourcePrefix: "/"
+    Qt.core.resourceSourceBase: sourceDirectory
 
     files: [
         "accessportal.cpp",
@@ -25,6 +29,8 @@ QtGuiApplication {
         "emailportal.h",
         "filechooserportal.cpp",
         "filechooserportal.h",
+        "implementation/appsmodel.cpp",
+        "implementation/appsmodel.h",
         "inhibitportal.cpp",
         "inhibitportal.h",
         "logging.cpp",
@@ -34,11 +40,21 @@ QtGuiApplication {
         "notificationportal.h",
         "printportal.cpp",
         "printportal.h",
+        "quickdialog.cpp",
+        "quickdialog.h",
         "screencastportal.cpp",
         "screencastportal.h",
         "screenshotportal.cpp",
         "screenshotportal.h",
     ]
+
+    Group {
+        name: "Resource Data"
+        files: [
+            "qml/AppChooserDialog.qml",
+        ]
+        fileTags: ["qt.core.resource_data"]
+    }
 
     Group {
         qbs.install: true
