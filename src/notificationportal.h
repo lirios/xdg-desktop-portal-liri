@@ -27,6 +27,8 @@
 #include <QDBusAbstractAdaptor>
 #include <QDBusObjectPath>
 
+#include <LiriNotifications/Notification>
+
 class NotificationPortal : public QDBusAbstractAdaptor
 {
     Q_OBJECT
@@ -40,6 +42,15 @@ public Q_SLOTS:
                          const QVariantMap &notification);
     void RemoveNotification(const QString &app_id,
                             const QString &id);
+
+private:
+    QMap<QString, Liri::Notification *> m_notifications;
+
+    QString findKey(Liri::Notification *notify, QString &appId, QString &id) const;
+
+private Q_SLOTS:
+    void notificationActionInvoked(const QString &action);
+    void notificationClosed(Liri::Notification::CloseReason reason);
 };
 
 #endif // NOTIFICATIONPORTAL_H

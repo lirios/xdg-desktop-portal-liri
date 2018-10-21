@@ -22,6 +22,7 @@ And the following modules:
 
  * [qbs](http://code.qt.io/cgit/qbs/qbs.git) >= 1.9.0
  * [qbs-shared](https://github.com/lirios/qbs-shared.git) >= 1.2.0
+ * [libliri](https://github.com/lirios/libliri.git)
 
 Runtime dependencies:
 
