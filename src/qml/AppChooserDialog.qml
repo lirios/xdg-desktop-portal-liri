@@ -60,7 +60,7 @@ QuickDialog {
         footer: DialogButtonBox {
             standardButtons: DialogButtonBox.Ok | DialogButtonBox.Cancel
             onAccepted: {
-                appChooserDialog.accepted(appChooserDialog.selectedAppId);
+                appChooserDialog.accepted();
                 appChooserDialog.close();
             }
             onRejected: {
