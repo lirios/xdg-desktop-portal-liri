@@ -1,0 +1,50 @@
+if(NOT TARGET Liri::Notifications)
+    find_package(Liri1Notifications REQUIRED)
+endif()
+
+liri_add_executable(XdgDesktopPortalLiri
+    OUTPUT_NAME
+        "xdg-desktop-portal-liri"
+    SOURCES
+        accessportal.cpp
+        accessportal.h
+        appchooserportal.cpp
+        appchooserportal.h
+        desktopportal.cpp
+        desktopportal.h
+        emailportal.cpp
+        emailportal.h
+        filechooserportal.cpp
+        filechooserportal.h
+        implementation/appsmodel.cpp
+        implementation/appsmodel.h
+        inhibitportal.cpp
+        inhibitportal.h
+        logging.cpp
+        logging_p.h
+        main.cpp
+        notificationportal.cpp
+        notificationportal.h
+        printportal.cpp
+        printportal.h
+        quickdialog.cpp
+        quickdialog.h
+        screencastportal.cpp
+        screencastportal.h
+        screenshotportal.cpp
+        screenshotportal.h
+    DEFINES
+        QT_NO_CAST_FROM_ASCII
+        QT_NO_FOREACH
+        VERSION="${PROJECT_VERSION}"
+    INSTALL_DIRECTORY
+        "${INSTALL_LIBEXECDIR}"
+    LIBRARIES
+        Qt5::Core
+        Qt5::DBus
+        Qt5::PrintSupport
+        Qt5::Qml
+        Qt5::Quick
+        Qt5::QuickControls2
+        Liri::Notifications
+)
