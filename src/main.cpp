@@ -33,6 +33,10 @@
 
 int main(int argc, char *argv[])
 {
+    // Setup the environment
+    qputenv("QT_QPA_PLATFORM", QByteArrayLiteral("wayland"));
+    qputenv("QT_WAYLAND_USE_BYPASSWINDOWMANAGERHINT", QByteArrayLiteral("1"));
+
     // Application
     QGuiApplication app(argc, argv);
     app.setApplicationName(QLatin1String("XDG Desktop Portal"));
