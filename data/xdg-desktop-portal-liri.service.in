@@ -1,0 +1,7 @@
+[Unit]
+Description=Portal service (Liri implementation)
+
+[Service]
+Type=dbus
+BusName=org.freedesktop.impl.portal.desktop.liri
+ExecStart=@ABSOLUTE_LIBEXECDIR@/xdg-desktop-portal-liri

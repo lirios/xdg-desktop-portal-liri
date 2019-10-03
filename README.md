@@ -42,6 +42,11 @@ make install # use sudo if necessary
 Replace `/path/to/prefix` to your installation prefix.
 Default is `/usr/local`.
 
+You can also append the following options to the `cmake` command:
+
+ * `-DLIRI_ENABLE_SYSTEMD:BOOL=OFF`: Disable systemd support.
+ * `-DINSTALL_SYSTEMDUSERUNITDIR=/path/to/systemd/user`: Path to install systemd user units (default: `/usr/local/lib/systemd/user`).
+
 ## Licensing
 
 Licensed under the terms of the GNU General Public License version 3.0 or,
