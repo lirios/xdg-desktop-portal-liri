@@ -29,6 +29,10 @@ liri_add_executable(XdgDesktopPortalLiri
         printportal.h
         quickdialog.cpp
         quickdialog.h
+        request.cpp
+        request.h
+        session.cpp
+        session.h
         screencastportal.cpp
         screencastportal.h
         screenshotportal.cpp
