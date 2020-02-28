@@ -12,6 +12,9 @@ if(NOT LIRI_LOCAL_ECM)
     list(APPEND CMAKE_MODULE_PATH "${LCS_MODULE_PATH}")
 endif()
 
+## Add some paths to check for CMake modules:
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+
 ## Set minimum versions required:
 set(QT_MIN_VERSION "5.10.0")
 
@@ -33,6 +36,7 @@ find_package(Qt5 "${QT_MIN_VERSION}"
     COMPONENTS
         Core
         DBus
+        Gui
         PrintSupport
         Qml
         Quick

@@ -40,9 +40,9 @@ QString Request::introspect(const QString &path) const
             "<interface name=\"org.freedesktop.impl.portal.Request\">"
             "  <method name=\"Close\"/>"
             "</interface>");
+        qCDebug(lcRequest) << "Request nodes:";
+        qCDebug(lcRequest) << nodes;
     }
-
-    qCDebug(lcRequest) << nodes;
 
     return nodes;
 }

@@ -33,7 +33,7 @@ public:
     static Session *createSession(Type type, const QString &appId, const QString &path, QObject *parent);
     static Session *getSession(const QString &sessionHandle);
 
-signals:
+Q_SIGNALS:
     void closed();
 
 private:
@@ -55,7 +55,7 @@ public:
     bool hasMultipleSources() const;
     void setHasMultipleSources(bool value);
 
-signals:
+Q_SIGNALS:
     void hasMultipleSourcesChanged();
 
 private:

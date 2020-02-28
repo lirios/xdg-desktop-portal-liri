@@ -27,12 +27,26 @@
 #include <QDBusAbstractAdaptor>
 #include <QDBusObjectPath>
 
+class Session;
+
 class ScreenCastPortal : public QDBusAbstractAdaptor
 {
     Q_OBJECT
     Q_CLASSINFO("D-Bus Interface", "org.freedesktop.impl.portal.ScreenCast")
+    Q_PROPERTY(uint version READ version)
+    Q_PROPERTY(uint AvailableSourceTypes READ AvailableSourceTypes)
 public:
+    enum SourceType {
+        Any = 0,
+        Monitor,
+        Window
+    };
+    Q_ENUM(SourceType)
+
     explicit ScreenCastPortal(QObject *parent);
+
+    uint version() const;
+    uint AvailableSourceTypes() const;
 
 public Q_SLOTS:
     uint CreateSession(const QDBusObjectPath &handle,
@@ -51,6 +65,9 @@ public Q_SLOTS:
                const QString &parent_window,
                const QVariantMap &options,
                QVariantMap &results);
+
+private:
+    Session *m_lastSession = nullptr;
 };
 
 #endif // SCREENCASTPORTAL_H

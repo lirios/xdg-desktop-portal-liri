@@ -1,6 +1,18 @@
 if(NOT TARGET Liri::Notifications)
     find_package(Liri1Notifications REQUIRED)
 endif()
+if(NOT TARGET Liri::WaylandClient)
+    find_package(Liri1WaylandClient REQUIRED)
+endif()
+
+find_package(PipeWire)
+
+if(PipeWire_FOUND)
+    set(screencast_SOURCES
+        screencaststream.cpp
+        screencaststream.h
+    )
+endif()
 
 liri_add_executable(XdgDesktopPortalLiri
     OUTPUT_NAME
@@ -37,6 +49,8 @@ liri_add_executable(XdgDesktopPortalLiri
         screencastportal.h
         screenshotportal.cpp
         screenshotportal.h
+        waylandintegration.cpp
+        waylandintegration.h
     DEFINES
         QT_NO_CAST_FROM_ASCII
         QT_NO_FOREACH
@@ -46,9 +60,17 @@ liri_add_executable(XdgDesktopPortalLiri
     LIBRARIES
         Qt5::Core
         Qt5::DBus
+        Qt5::Gui
         Qt5::PrintSupport
         Qt5::Qml
         Qt5::Quick
         Qt5::QuickControls2
         Liri::Notifications
+        Liri::WaylandClient
 )
+
+liri_extend_target("XdgDesktopPortalLiri"
+    CONDITION PipeWire_FOUND
+    DEFINES SCREENCAST_ENABLED
+    SOURCES "${screencast_SOURCES}"
+    LIBRARIES "PkgConfig::PipeWire")

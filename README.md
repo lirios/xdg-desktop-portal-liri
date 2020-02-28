@@ -23,6 +23,7 @@ And the following modules:
  * [cmake](https://gitlab.kitware.com/cmake/cmake) >= 3.10.0
  * [cmake-shared](https://github.com/lirios/cmake-shared.git) >= 1.0.0
  * [libliri](https://github.com/lirios/libliri.git)
+ * [liri-wayland](https://github.com/lirios/wayland.git)
 
 Runtime dependencies:
 

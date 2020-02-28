@@ -4,10 +4,17 @@ set -e
 
 source /usr/local/share/liri-travis/functions
 
+# Install dependencies
+travis_start "install_packages"
+msg "Install packages..."
+dnf install -y \
+     pipewire-devel
+travis_end "install_packages"
+
 # Install artifacts
 travis_start "artifacts"
 msg "Install artifacts..."
-for name in cmakeshared libliri; do
+for name in cmakeshared libliri wayland; do
     /usr/local/bin/liri-download-artifacts $TRAVIS_BRANCH ${name}-artifacts.tar.gz
 done
 travis_end "artifacts"

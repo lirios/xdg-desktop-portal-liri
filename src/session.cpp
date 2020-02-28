@@ -74,9 +74,9 @@ QString Session::introspect(const QString &path) const
             "  <signal name=\"Closed\"/>"
             "  <property name=\"version\" type=\"u\" access=\"read\"/>"
             "</interface>");
+        qCDebug(lcSession) << "Session nodes:";
+        qCDebug(lcSession) << nodes;
     }
-
-    qCDebug(lcSession) << nodes;
 
     return nodes;
 }
