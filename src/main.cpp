@@ -34,15 +34,15 @@
 int main(int argc, char *argv[])
 {
     // Setup the environment
-    qputenv("QT_QPA_PLATFORM", QByteArrayLiteral("wayland"));
-    qputenv("QT_WAYLAND_USE_BYPASSWINDOWMANAGERHINT", QByteArrayLiteral("1"));
+    qputenv("QT_QPA_PLATFORM", QByteArray("wayland"));
+    qputenv("QT_WAYLAND_USE_BYPASSWINDOWMANAGERHINT", QByteArray("1"));
 
     // Application
     QGuiApplication app(argc, argv);
-    app.setApplicationName(QLatin1String("XDG Desktop Portal"));
-    app.setApplicationVersion(QLatin1String(VERSION));
-    app.setOrganizationName(QLatin1String("Liri"));
-    app.setOrganizationDomain(QLatin1String("liri.io"));
+    app.setApplicationName(QStringLiteral("XDG Desktop Portal"));
+    app.setApplicationVersion(QStringLiteral(VERSION));
+    app.setOrganizationName(QStringLiteral("Liri"));
+    app.setOrganizationDomain(QStringLiteral("liri.io"));
 #ifndef QT_NO_SESSIONMANAGER
     app.setFallbackSessionManagementEnabled(false);
 #endif
@@ -53,9 +53,9 @@ int main(int argc, char *argv[])
 
     // Register service
     QDBusConnection sessionBus = QDBusConnection::sessionBus();
-    if (sessionBus.registerService(QLatin1String("org.freedesktop.impl.portal.desktop.liri"))) {
+    if (sessionBus.registerService(QStringLiteral("org.freedesktop.impl.portal.desktop.liri"))) {
         DesktopPortal *desktopPortal = new DesktopPortal(&app);
-        if (sessionBus.registerObject(QLatin1String("/org/freedesktop/portal/desktop"), desktopPortal, QDBusConnection::ExportAdaptors)) {
+        if (sessionBus.registerObject(QStringLiteral("/org/freedesktop/portal/desktop"), desktopPortal, QDBusConnection::ExportAdaptors)) {
             qCDebug(lcPortal) << "XDG desktop portal for Liri registered";
         } else {
             qCWarning(lcPortal) << "Failed to register XDG desktop portal for Liri";
