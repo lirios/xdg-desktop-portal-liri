@@ -5,7 +5,6 @@ xdg-desktop-portal-liri
 [![GitHub release](https://img.shields.io/github/release/lirios/xdg-desktop-portal-liri.svg)](https://github.com/lirios/xdg-desktop-portal-liri)
 [![Build Status](https://travis-ci.org/lirios/xdg-desktop-portal-liri.svg?branch=develop)](https://travis-ci.org/lirios/xdg-desktop-portal-liri)
 [![GitHub issues](https://img.shields.io/github/issues/lirios/xdg-desktop-portal-liri.svg)](https://github.com/lirios/xdg-desktop-portal-liri/issues)
-[![Maintained](https://img.shields.io/maintenance/yes/2018.svg)](https://github.com/lirios/xdg-desktop-portal-liri/commits/develop)
 
 A backend implementation of [xdg-desktop-portal](https://github.com/flatpak/xdg-desktop-portal)
 that is using Qt and Liri.
