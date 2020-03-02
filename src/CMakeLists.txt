@@ -7,12 +7,10 @@ endif()
 
 find_package(PipeWire)
 
-if(PipeWire_FOUND)
-    set(screencast_SOURCES
-        screencaststream.cpp
-        screencaststream.h
-    )
-endif()
+set(screencast_SOURCES
+    screencaststream.cpp
+    screencaststream.h
+)
 
 liri_add_executable(XdgDesktopPortalLiri
     OUTPUT_NAME
@@ -69,8 +67,9 @@ liri_add_executable(XdgDesktopPortalLiri
         Liri::WaylandClient
 )
 
-liri_extend_target("XdgDesktopPortalLiri"
-    CONDITION PipeWire_FOUND
-    DEFINES SCREENCAST_ENABLED
-    SOURCES "${screencast_SOURCES}"
-    LIBRARIES "PkgConfig::PipeWire")
+if(TARGET PkgConfig::PipeWire)
+    liri_extend_target("XdgDesktopPortalLiri"
+        DEFINES SCREENCAST_ENABLED
+        SOURCES "${screencast_SOURCES}"
+        LIBRARIES "PkgConfig::PipeWire")
+endif()

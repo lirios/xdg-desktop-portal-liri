@@ -11,8 +11,10 @@
 #include <QTimer>
 
 #include "logging_p.h"
-#include "screencaststream.h"
 #include "waylandintegration.h"
+#ifdef SCREENCAST_ENABLED
+#  include "screencaststream.h"
+#endif
 
 Q_GLOBAL_STATIC(WaylandIntegration, s_waylandIntegration)
 
@@ -60,9 +62,17 @@ WaylandIntegration::WaylandIntegration(QObject *parent)
 WaylandIntegration::~WaylandIntegration()
 {
     m_exportDmabuf->deleteLater();
+#ifdef SCREENCAST_ENABLED
     qDeleteAll(m_streams);
+#endif
 }
 
+WaylandIntegration *WaylandIntegration::instance()
+{
+    return s_waylandIntegration();
+}
+
+#ifdef SCREENCAST_ENABLED
 QVariant WaylandIntegration::streams()
 {
     Streams streams;
@@ -119,11 +129,6 @@ void WaylandIntegration::stopStreaming(QScreen *screen)
         m_frames[screen]->deleteLater();
         m_frames.remove(screen);
     }
-}
-
-WaylandIntegration *WaylandIntegration::instance()
-{
-    return s_waylandIntegration();
 }
 
 bool WaylandIntegration::startStreamingImmediately(QScreen *screen)
@@ -186,3 +191,4 @@ bool WaylandIntegration::startStreamingImmediately(QScreen *screen)
 
     return false;
 }
+#endif

@@ -55,6 +55,7 @@ uint ScreenCastPortal::CreateSession(const QDBusObjectPath &handle,
     qCDebug(lcScreenCast) << "    app_id: " << app_id;
     qCDebug(lcScreenCast) << "    options: " << options;
 
+#ifdef SCREENCAST_ENABLED
     if (m_lastSession) {
         qCWarning(lcScreenCast, "Another screen cast session is running");
         return 2;
@@ -67,6 +68,10 @@ uint ScreenCastPortal::CreateSession(const QDBusObjectPath &handle,
     m_lastSession = session;
 
     return 0;
+#else
+    qCWarning(lcScreenCast, "Screen cast is not supported");
+    return 1;
+#endif
 }
 
 uint ScreenCastPortal::SelectSources(const QDBusObjectPath &handle,
@@ -83,6 +88,7 @@ uint ScreenCastPortal::SelectSources(const QDBusObjectPath &handle,
     qCDebug(lcScreenCast) << "    app_id: " << app_id;
     qCDebug(lcScreenCast) << "    options: " << options;
 
+#ifdef SCREENCAST_ENABLED
     SourceType types = Monitor;
 
     auto *session = qobject_cast<ScreenCastSession*>(Session::getSession(session_handle.path()));
@@ -105,6 +111,10 @@ uint ScreenCastPortal::SelectSources(const QDBusObjectPath &handle,
     // TODO: Remote desktop
 
     return 0;
+#else
+    qCWarning(lcScreenCast, "Screen cast is not supported");
+    return 1;
+#endif
 }
 
 uint ScreenCastPortal::Start(const QDBusObjectPath &handle,
@@ -121,6 +131,7 @@ uint ScreenCastPortal::Start(const QDBusObjectPath &handle,
     qCDebug(lcScreenCast) << "    parent_window: " << parent_window;
     qCDebug(lcScreenCast) << "    options: " << options;
 
+#ifdef SCREENCAST_ENABLED
     auto *session = qobject_cast<ScreenCastSession *>(Session::getSession(session_handle.path()));
     if (!session) {
         qCWarning(lcScreenCast, "Cannot start screen cast: session %s doesn't exist",
@@ -150,4 +161,9 @@ uint ScreenCastPortal::Start(const QDBusObjectPath &handle,
     results.insert(QStringLiteral("streams"), streams);
 
     return 0;
+#else
+    Q_UNUSED(results)
+    qCWarning(lcScreenCast, "Screen cast is not supported");
+    return 1;
+#endif
 }

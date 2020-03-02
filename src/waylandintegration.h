@@ -28,19 +28,23 @@ public:
     explicit WaylandIntegration(QObject *parent = nullptr);
     ~WaylandIntegration();
 
+#ifdef SCREENCAST_ENABLED
     QVariant streams();
 
     bool startStreaming(QScreen *screen);
     void stopStreaming(QScreen *screen);
+#endif
 
     static WaylandIntegration *instance();
 
 private:
     WlrExportDmabufManagerV1 *m_exportDmabuf = nullptr;
+#ifdef SCREENCAST_ENABLED
     QMap<QScreen *, WlrExportDmabufFrameV1 *> m_frames;
     QMap<QScreen *, ScreenCastStream *> m_streams;
 
     bool startStreamingImmediately(QScreen *screen);
+#endif
 };
 
 #endif // WAYLANDINTEGRATION_H
