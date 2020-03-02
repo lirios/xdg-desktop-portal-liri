@@ -38,7 +38,7 @@ uint EmailPortal::ComposeEmail(const QDBusObjectPath &handle,
                                const QVariantMap &options,
                                QVariantMap &results)
 {
-    Q_UNUSED(results);
+    Q_UNUSED(results)
 
     qCDebug(lcEmail) << "ComposeEmail called with parameters:";
     qCDebug(lcEmail) << "    handle: " << handle.path();
@@ -46,16 +46,16 @@ uint EmailPortal::ComposeEmail(const QDBusObjectPath &handle,
     qCDebug(lcEmail) << "    window: " << window;
     qCDebug(lcEmail) << "    options: " << options;
 
-    const QString address = options.value(QLatin1String("address")).toString();
-    const QString subject = options.value(QLatin1String("subject")).toString();
-    const QString body = options.value(QLatin1String("body")).toString();
-    const QStringList attachments = options.value(QLatin1String("attachments")).toStringList();
+    const QString address = options.value(QStringLiteral("address")).toString();
+    const QString subject = options.value(QStringLiteral("subject")).toString();
+    const QString body = options.value(QStringLiteral("body")).toString();
+    const QStringList attachments = options.value(QStringLiteral("attachments")).toStringList();
 
     QString attachmentString;
     for (const QString &attachment : attachments)
         attachmentString += QStringLiteral("&attachment=%1").arg(attachment);
 
     const QString mailtoString = QStringLiteral("mailto:%1?subject=%2&body=%3%4")
-            .arg(address).arg(subject).arg(body).arg(attachmentString);
+            .arg(address, subject, body, attachmentString);
     return QDesktopServices::openUrl(QUrl(mailtoString));
 }

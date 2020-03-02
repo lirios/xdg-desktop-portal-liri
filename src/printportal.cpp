@@ -37,6 +37,8 @@ uint PrintPortal::Print(const QDBusObjectPath &handle,
                         const QVariantMap &options,
                         QVariantMap &results)
 {
+    Q_UNUSED(results)
+
     qCDebug(lcPrint) << "Print called with parameters:";
     qCDebug(lcPrint) << "    handle: " << handle.path();
     qCDebug(lcPrint) << "    app_id: " << app_id;
@@ -44,6 +46,8 @@ uint PrintPortal::Print(const QDBusObjectPath &handle,
     qCDebug(lcPrint) << "    title: " << title;
     qCDebug(lcPrint) << "    fd: " << fd.fileDescriptor();
     qCDebug(lcPrint) << "    options: " << options;
+
+    return 1;
 }
 
 uint PrintPortal::PreparePrint(const QDBusObjectPath &handle,
@@ -55,6 +59,8 @@ uint PrintPortal::PreparePrint(const QDBusObjectPath &handle,
                                const QVariantMap &options,
                                QVariantMap &results)
 {
+    Q_UNUSED(results)
+
     qCDebug(lcPrint) << "PreparePrint called with parameters:";
     qCDebug(lcPrint) << "    handle: " << handle.path();
     qCDebug(lcPrint) << "    app_id: " << app_id;
@@ -63,4 +69,6 @@ uint PrintPortal::PreparePrint(const QDBusObjectPath &handle,
     qCDebug(lcPrint) << "    settings: " << settings;
     qCDebug(lcPrint) << "    page_setup: " << page_setup;
     qCDebug(lcPrint) << "    options: " << options;
+
+    return 1;
 }

@@ -35,9 +35,13 @@ uint ScreenshotPortal::Screenshot(const QDBusObjectPath &handle,
                                   const QVariantMap &options,
                                   QVariantMap &results)
 {
+    Q_UNUSED(results)
+
     qCDebug(lcScreenshot) << "Screenshot called with parameters:";
     qCDebug(lcScreenshot) << "    handle: " << handle.path();
     qCDebug(lcScreenshot) << "    app_id: " << app_id;
     qCDebug(lcScreenshot) << "    parent_window: " << parent_window;
     qCDebug(lcScreenshot) << "    options: " << options;
+
+    return 1;
 }

@@ -36,11 +36,16 @@ uint FileChooserPortal::OpenFile(const QDBusObjectPath &handle,
                                  const QVariantMap &options,
                                  QVariantMap &results)
 {
+    Q_UNUSED(app_id)
+    Q_UNUSED(results)
+
     qCDebug(lcFileChooser) << "OpenFile called with parameters:";
     qCDebug(lcFileChooser) << "    handle: " << handle.path();
     qCDebug(lcFileChooser) << "    parent_window: " << parent_window;
     qCDebug(lcFileChooser) << "    title: " << title;
     qCDebug(lcFileChooser) << "    options: " << options;
+
+    return 1;
 }
 
 uint FileChooserPortal::SaveFile(const QDBusObjectPath &handle,
@@ -50,9 +55,14 @@ uint FileChooserPortal::SaveFile(const QDBusObjectPath &handle,
                                  const QVariantMap &options,
                                  QVariantMap &results)
 {
+    Q_UNUSED(app_id)
+    Q_UNUSED(results)
+
     qCDebug(lcFileChooser) << "SaveFile called with parameters:";
     qCDebug(lcFileChooser) << "    handle: " << handle.path();
     qCDebug(lcFileChooser) << "    parent_window: " << parent_window;
     qCDebug(lcFileChooser) << "    title: " << title;
     qCDebug(lcFileChooser) << "    options: " << options;
+
+    return 1;
 }

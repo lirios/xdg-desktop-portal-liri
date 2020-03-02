@@ -34,6 +34,8 @@ uint AccessPortal::AccessDialog(const QDBusObjectPath &handle, const QString &ap
                                 const QString &subtitle, const QString &body,
                                 const QVariantMap &options, QVariantMap &results)
 {
+    Q_UNUSED(results)
+
     qCDebug(lcAccess) << "AccessDialog called with parameters:";
     qCDebug(lcAccess) << "    handle: " << handle.path();
     qCDebug(lcAccess) << "    app_id: " << app_id;
@@ -42,4 +44,6 @@ uint AccessPortal::AccessDialog(const QDBusObjectPath &handle, const QString &ap
     qCDebug(lcAccess) << "    subtitle: " << subtitle;
     qCDebug(lcAccess) << "    body: " << body;
     qCDebug(lcAccess) << "    options: " << options;
+
+    return 1;
 }
