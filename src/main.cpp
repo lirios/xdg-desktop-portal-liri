@@ -22,7 +22,7 @@
  ***************************************************************************/
 
 #include <QDBusConnection>
-#include <QGuiApplication>
+#include <QApplication>
 #include <QQmlComponent>
 
 #include "desktopportal.h"
@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
     qputenv("QT_WAYLAND_USE_BYPASSWINDOWMANAGERHINT", QByteArray("1"));
 
     // Application
-    QGuiApplication app(argc, argv);
+    QApplication app(argc, argv);
     app.setApplicationName(QStringLiteral("XDG Desktop Portal"));
     app.setApplicationVersion(QStringLiteral(VERSION));
     app.setOrganizationName(QStringLiteral("Liri"));

@@ -32,21 +32,39 @@ class FileChooserPortal : public QDBusAbstractAdaptor
     Q_OBJECT
     Q_CLASSINFO("D-Bus Interface", "org.freedesktop.impl.portal.FileChooser")
 public:
-    explicit FileChooserPortal(QObject *parent);
+    typedef struct {
+        quint32 type;
+        QString filterString;
+    } Filter;
+    typedef QVector<Filter> Filters;
+
+    typedef struct {
+        QString userVisibleName;
+        Filters filters;
+    } FilterList;
+    typedef QVector<FilterList> FilterListList;
+
+    explicit FileChooserPortal(QObject *parent = nullptr);
 
 public Q_SLOTS:
-    uint OpenFile(const QDBusObjectPath &handle,
-                  const QString &app_id,
-                  const QString &parent_window,
-                  const QString &title,
-                  const QVariantMap &options,
-                  QVariantMap &results);
-    uint SaveFile(const QDBusObjectPath &handle,
-                  const QString &app_id,
-                  const QString &parent_window,
-                  const QString &title,
-                  const QVariantMap &options,
-                  QVariantMap &results);
+    quint32 OpenFile(const QDBusObjectPath &handle,
+                     const QString &app_id,
+                     const QString &parent_window,
+                     const QString &title,
+                     const QVariantMap &options,
+                     QVariantMap &results);
+    quint32 SaveFile(const QDBusObjectPath &handle,
+                     const QString &app_id,
+                     const QString &parent_window,
+                     const QString &title,
+                     const QVariantMap &options,
+                     QVariantMap &results);
+    quint32 SaveFiles(const QDBusObjectPath &handle,
+                      const QString &app_id,
+                      const QString &parent_window,
+                      const QString &title,
+                      const QVariantMap &options,
+                      QVariantMap &results);
 };
 
 #endif // FILECHOOSERPORTAL_H

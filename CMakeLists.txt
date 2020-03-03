@@ -37,6 +37,7 @@ find_package(Qt5 "${QT_MIN_VERSION}"
         Core
         DBus
         Gui
+        Widgets
         PrintSupport
         Qml
         Quick
