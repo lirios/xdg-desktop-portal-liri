@@ -24,6 +24,9 @@
 #include "screenshotportal.h"
 #include "logging_p.h"
 
+// Read the specifications here:
+// https://github.com/flatpak/xdg-desktop-portal/blob/master/data/org.freedesktop.impl.portal.Screenshot.xml
+
 ScreenshotPortal::ScreenshotPortal(QObject *parent)
     : QDBusAbstractAdaptor(parent)
 {

@@ -29,6 +29,9 @@
 #include "logging_p.h"
 #include "quickdialog.h"
 
+// Read the specifications here:
+// https://github.com/flatpak/xdg-desktop-portal/blob/master/data/org.freedesktop.impl.portal.AppChooser.xml
+
 AppChooserPortal::AppChooserPortal(QObject *parent)
     : QDBusAbstractAdaptor(parent)
 {

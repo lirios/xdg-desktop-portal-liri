@@ -24,6 +24,9 @@
 #include "printportal.h"
 #include "logging_p.h"
 
+// Read the specifications here:
+// https://github.com/flatpak/xdg-desktop-portal/blob/master/data/org.freedesktop.impl.portal.Print.xml
+
 PrintPortal::PrintPortal(QObject *parent)
     : QDBusAbstractAdaptor(parent)
 {

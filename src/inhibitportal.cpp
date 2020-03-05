@@ -24,6 +24,9 @@
 #include "inhibitportal.h"
 #include "logging_p.h"
 
+// Read the specifications here:
+// https://github.com/flatpak/xdg-desktop-portal/blob/master/data/org.freedesktop.impl.portal.Inhibit.xml
+
 InhibitPortal::InhibitPortal(QObject *parent)
     : QDBusAbstractAdaptor(parent)
 {

@@ -28,6 +28,9 @@
 #include "notificationportal.h"
 #include "logging_p.h"
 
+// Read the specifications here:
+// https://github.com/flatpak/xdg-desktop-portal/blob/master/data/org.freedesktop.impl.portal.Notification.xml
+
 static Liri::Notification::Urgency convertUrgency(const QString &urgency)
 {
     if (urgency == QLatin1String("low"))

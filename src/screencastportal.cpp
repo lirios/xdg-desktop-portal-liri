@@ -28,6 +28,9 @@
 #include "logging_p.h"
 #include "waylandintegration.h"
 
+// Read the specifications here:
+// https://github.com/flatpak/xdg-desktop-portal/blob/master/data/org.freedesktop.impl.portal.ScreenCast.xml
+
 ScreenCastPortal::ScreenCastPortal(QObject *parent)
     : QDBusAbstractAdaptor(parent)
 {

@@ -9,6 +9,9 @@
 #include "request.h"
 #include "logging_p.h"
 
+// Read the specifications here:
+// https://github.com/flatpak/xdg-desktop-portal/blob/master/data/org.freedesktop.impl.portal.Request.xml
+
 Request::Request(const QString &portalName, const QVariant &data, QObject *parent)
     : QDBusVirtualObject(parent)
     , m_portalName(portalName)

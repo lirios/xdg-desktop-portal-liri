@@ -10,6 +10,9 @@
 #include "session.h"
 #include "logging_p.h"
 
+// Read the specifications here:
+// https://github.com/flatpak/xdg-desktop-portal/blob/master/data/org.freedesktop.impl.portal.Session.xml
+
 static QMap<QString, Session *> sessionList;
 
 // Session
