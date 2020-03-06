@@ -1,3 +1,6 @@
+if(NOT TARGET Liri::Qt5GSettings)
+    find_package(Liri1Qt5GSettings REQUIRED)
+endif()
 if(NOT TARGET Liri::Notifications)
     find_package(Liri1Notifications REQUIRED)
 endif()
@@ -47,6 +50,8 @@ liri_add_executable(XdgDesktopPortalLiri
         screencastportal.h
         screenshotportal.cpp
         screenshotportal.h
+        wallpaperportal.cpp
+        wallpaperportal.h
         waylandintegration.cpp
         waylandintegration.h
     RESOURCES
@@ -66,6 +71,7 @@ liri_add_executable(XdgDesktopPortalLiri
         Qt5::Qml
         Qt5::Quick
         Qt5::QuickControls2
+        Liri::Qt5GSettings
         Liri::Notifications
         Liri::WaylandClient
 )
