@@ -35,11 +35,11 @@ EmailPortal::EmailPortal(QObject *parent)
 {
 }
 
-uint EmailPortal::ComposeEmail(const QDBusObjectPath &handle,
-                               const QString &app_id,
-                               const QString &window,
-                               const QVariantMap &options,
-                               QVariantMap &results)
+quint32 EmailPortal::ComposeEmail(const QDBusObjectPath &handle,
+                                  const QString &app_id,
+                                  const QString &window,
+                                  const QVariantMap &options,
+                                  QVariantMap &results)
 {
     Q_UNUSED(results)
 
@@ -50,15 +50,25 @@ uint EmailPortal::ComposeEmail(const QDBusObjectPath &handle,
     qCDebug(lcEmail) << "    options: " << options;
 
     const QString address = options.value(QStringLiteral("address")).toString();
+    const QStringList addresses = options.value(QStringLiteral("addresses")).toStringList();
     const QString subject = options.value(QStringLiteral("subject")).toString();
     const QString body = options.value(QStringLiteral("body")).toString();
+    const QStringList ccs = options.value(QStringLiteral("cc")).toStringList();
+    const QStringList bccs = options.value(QStringLiteral("bcc")).toStringList();
     const QStringList attachments = options.value(QStringLiteral("attachments")).toStringList();
+
+    QStringList addressList = addresses;
+    addressList.prepend(address);
+
+    QString ccString = ccs.isEmpty() ? QString() : QStringLiteral("&cc=%1").arg(ccs.join(QLatin1Char(',')));
+
+    QString bccString = bccs.isEmpty() ? QString() : QStringLiteral("&bcc=%1").arg(bccs.join(QLatin1Char(',')));
 
     QString attachmentString;
     for (const QString &attachment : attachments)
         attachmentString += QStringLiteral("&attachment=%1").arg(attachment);
 
-    const QString mailtoString = QStringLiteral("mailto:%1?subject=%2&body=%3%4")
-            .arg(address, subject, body, attachmentString);
-    return QDesktopServices::openUrl(QUrl(mailtoString));
+    const QString mailtoString = QStringLiteral("mailto:%1?subject=%2&body=%3%4%5%6")
+            .arg(addressList.join(QLatin1Char(',')), subject, body, attachmentString, ccString, bccString);
+    return QDesktopServices::openUrl(QUrl(mailtoString)) ? 0 : 1;
 }

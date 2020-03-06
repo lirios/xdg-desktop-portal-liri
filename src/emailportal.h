@@ -35,11 +35,11 @@ public:
     explicit EmailPortal(QObject *parent);
 
 public Q_SLOTS:
-    uint ComposeEmail(const QDBusObjectPath &handle,
-                      const QString &app_id,
-                      const QString &window,
-                      const QVariantMap &options,
-                      QVariantMap &results);
+    quint32 ComposeEmail(const QDBusObjectPath &handle,
+                         const QString &app_id,
+                         const QString &window,
+                         const QVariantMap &options,
+                         QVariantMap &results);
 };
 
 #endif // EMAILPORTAL_H
