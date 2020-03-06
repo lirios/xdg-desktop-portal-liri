@@ -49,6 +49,8 @@ liri_add_executable(XdgDesktopPortalLiri
         screenshotportal.h
         waylandintegration.cpp
         waylandintegration.h
+    RESOURCES
+        "resources.qrc"
     DEFINES
         QT_NO_CAST_FROM_ASCII
         QT_NO_FOREACH

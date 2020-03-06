@@ -1,0 +1,11 @@
+<!--
+SPDX-FileCopyrightText: 2020 Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
+
+SPDX-License-Identifier: GPL-3.0-or-later
+-->
+
+<RCC>
+    <qresource prefix="/">
+        <file>qml/AppChooserDialog.qml</file>
+    </qresource>
+</RCC>
