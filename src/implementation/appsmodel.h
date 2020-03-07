@@ -59,7 +59,7 @@ public:
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
-    void populate(const QStringList &choices, const QString &defaultAppId);
+    void populate(const QStringList &choices, const QString &defaultAppId = QString());
 
 private:
     QVector<AppItem *> m_apps;

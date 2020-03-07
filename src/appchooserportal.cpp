@@ -34,15 +34,16 @@
 
 AppChooserPortal::AppChooserPortal(QObject *parent)
     : QDBusAbstractAdaptor(parent)
+    , m_appsModel(new AppsModel(this))
 {
 }
 
-uint AppChooserPortal::ChooseApplication(const QDBusObjectPath &handle,
-                                         const QString &app_id,
-                                         const QString &parent_window,
-                                         const QStringList &choices,
-                                         const QVariantMap &options,
-                                         QVariantMap &results)
+quint32 AppChooserPortal::ChooseApplication(const QDBusObjectPath &handle,
+                                            const QString &app_id,
+                                            const QString &parent_window,
+                                            const QStringList &choices,
+                                            const QVariantMap &options,
+                                            QVariantMap &results)
 {
     qCDebug(lcAppChooser) << "ChooseApplication called with parameters:";
     qCDebug(lcAppChooser) << "    handle: " << handle.path();
@@ -51,23 +52,28 @@ uint AppChooserPortal::ChooseApplication(const QDBusObjectPath &handle,
     qCDebug(lcAppChooser) << "    choices: " << choices;
     qCDebug(lcAppChooser) << "    options: " << options;
 
-    auto appsModel = new AppsModel(this);
-    appsModel->populate(choices, app_id);
-
     QQmlApplicationEngine engine(QLatin1String("qrc:/qml/AppChooserDialog.qml"));
-    engine.rootContext()->setContextProperty(QLatin1String("appsModel"), appsModel);
+    engine.rootContext()->setContextProperty(QLatin1String("appsModel"), m_appsModel);
     QObject *topLevel = engine.rootObjects().at(0);
     QuickDialog *dialog = qobject_cast<QuickDialog *>(topLevel);
     if (dialog->exec()) {
         results.insert(QLatin1String("choice"), topLevel->property("selectedAppId").toString());
         dialog->close();
         dialog->deleteLater();
-        appsModel->deleteLater();
         return 0;
     }
 
     dialog->deleteLater();
-    appsModel->deleteLater();
 
     return 1;
+}
+
+void AppChooserPortal::UpdateChoices(const QDBusObjectPath &handle,
+                                     const QStringList &choices)
+{
+    qCDebug(lcAppChooser) << "UpdateChoices called with parameters:";
+    qCDebug(lcAppChooser) << "    handle: " << handle.path();
+    qCDebug(lcAppChooser) << "    choices: " << choices;
+
+    m_appsModel->populate(choices);
 }

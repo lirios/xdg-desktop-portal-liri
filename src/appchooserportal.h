@@ -27,6 +27,8 @@
 #include <QDBusAbstractAdaptor>
 #include <QDBusObjectPath>
 
+class AppsModel;
+
 class AppChooserPortal : public QDBusAbstractAdaptor
 {
     Q_OBJECT
@@ -35,12 +37,17 @@ public:
     explicit AppChooserPortal(QObject *parent);
 
 public Q_SLOTS:
-    uint ChooseApplication(const QDBusObjectPath &handle,
-                           const QString &app_id,
-                           const QString &parent_window,
-                           const QStringList &choices,
-                           const QVariantMap &options,
-                           QVariantMap &results);
+    quint32 ChooseApplication(const QDBusObjectPath &handle,
+                              const QString &app_id,
+                              const QString &parent_window,
+                              const QStringList &choices,
+                              const QVariantMap &options,
+                              QVariantMap &results);
+    void UpdateChoices(const QDBusObjectPath &handle,
+                       const QStringList &choices);
+
+private:
+    AppsModel *m_appsModel = nullptr;
 };
 
 #endif // APPCHOOSERPORTAL_H
