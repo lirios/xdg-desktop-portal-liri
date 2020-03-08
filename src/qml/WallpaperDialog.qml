@@ -10,6 +10,7 @@ import io.liri.Portal 1.0
 QuickDialog {
     id: dialog
 
+    property string setOn: "both"
     property alias uri: image.source
 
     title: qsTr("Set Background")
@@ -25,12 +26,29 @@ QuickDialog {
         anchors.left: parent.left
         anchors.top: parent.top
 
-        Image {
-            id: image
+        header: FluidControls.DialogLabel {
+            text: qsTr("Set Background")
+            padding: 24
+        }
 
-            anchors.centerIn: parent
-            width: 500
-            height: 300
+        Column {
+            Label {
+                text: {
+                    if (setOn === "background")
+                        qsTr("Please confirm if you want to change the wallpaper of your desktop.")
+                    else if (setOn === "lockscreen")
+                        qsTr("Please confirm if you want to change the background of the lock screen.")
+                    else
+                        qsTr("Please confirm if you want to change the wallpaper of your desktop and the background of the lock screen.")
+                }
+            }
+
+            Image {
+                id: image
+
+                width: 500
+                height: 300
+            }
         }
 
         footer: DialogButtonBox {

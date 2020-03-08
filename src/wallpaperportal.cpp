@@ -39,6 +39,7 @@ quint32 WallpaperPortal::SetWallpaperURI(const QDBusObjectPath &handle,
         QQmlApplicationEngine engine(QLatin1String("qrc:/qml/WallpaperDialog.qml"));
         QObject *topLevel = engine.rootObjects().at(0);
         QuickDialog *dialog = qobject_cast<QuickDialog *>(topLevel);
+        dialog->setProperty("setOn", setOn);
         dialog->setProperty("uri", uri);
         if (dialog->exec()) {
             setWallpaper(setOn, uri);
