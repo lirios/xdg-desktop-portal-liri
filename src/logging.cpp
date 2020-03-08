@@ -25,6 +25,7 @@
 
 Q_LOGGING_CATEGORY(lcPortal, "liri.xdg-desktop-portal")
 Q_LOGGING_CATEGORY(lcAccess, "liri.xdg-desktop-portal.access")
+Q_LOGGING_CATEGORY(lcAccount, "liri.xdg-desktop-portal.account")
 Q_LOGGING_CATEGORY(lcAppChooser, "liri.xdg-desktop-portal.appchooser")
 Q_LOGGING_CATEGORY(lcEmail, "liri.xdg-desktop-portal.email")
 Q_LOGGING_CATEGORY(lcFileChooser, "liri.xdg-desktop-portal.filechooser")

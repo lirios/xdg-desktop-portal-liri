@@ -27,6 +27,7 @@
 #include <QObject>
 
 class AccessPortal;
+class AccountPortal;
 class AppChooserPortal;
 class EmailPortal;
 class FileChooserPortal;
@@ -44,6 +45,7 @@ public:
 
 private:
     AccessPortal *m_access = nullptr;
+    AccountPortal *m_account = nullptr;
     AppChooserPortal *m_appChooser = nullptr;
     EmailPortal *m_email = nullptr;
     FileChooserPortal *m_fileChooser = nullptr;

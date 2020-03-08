@@ -1,3 +1,6 @@
+if(NOT TARGET Liri::Qt5AccountsService)
+    find_package(Liri1Qt5AccountsService REQUIRED)
+endif()
 if(NOT TARGET Liri::Qt5GSettings)
     find_package(Liri1Qt5GSettings REQUIRED)
 endif()
@@ -6,6 +9,9 @@ if(NOT TARGET Liri::Notifications)
 endif()
 if(NOT TARGET Liri::WaylandClient)
     find_package(Liri1WaylandClient REQUIRED)
+endif()
+if(NOT TARGET Liri::Xdg)
+    find_package(Liri1Xdg REQUIRED)
 endif()
 
 find_package(PipeWire)
@@ -21,6 +27,8 @@ liri_add_executable(XdgDesktopPortalLiri
     SOURCES
         accessportal.cpp
         accessportal.h
+        accountportal.cpp
+        accountportal.h
         appchooserportal.cpp
         appchooserportal.h
         desktopportal.cpp
@@ -71,9 +79,11 @@ liri_add_executable(XdgDesktopPortalLiri
         Qt5::Qml
         Qt5::Quick
         Qt5::QuickControls2
+        Liri::Qt5AccountsService
         Liri::Qt5GSettings
         Liri::Notifications
         Liri::WaylandClient
+        Liri::Xdg
 )
 
 if(TARGET PkgConfig::PipeWire)

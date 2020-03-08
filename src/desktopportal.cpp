@@ -22,6 +22,7 @@
  ***************************************************************************/
 
 #include "accessportal.h"
+#include "accountportal.h"
 #include "appchooserportal.h"
 #include "desktopportal.h"
 #include "emailportal.h"
@@ -35,6 +36,7 @@
 DesktopPortal::DesktopPortal(QObject *parent)
     : QObject(parent)
     , m_access(new AccessPortal(this))
+    , m_account(new AccountPortal(this))
     , m_appChooser(new AppChooserPortal(this))
     , m_email(new EmailPortal(this))
     , m_fileChooser(new FileChooserPortal(this))
