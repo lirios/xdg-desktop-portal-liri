@@ -53,6 +53,7 @@ Q_DECLARE_METATYPE(WaylandIntegration::Streams)
 
 WaylandIntegration::WaylandIntegration(QObject *parent)
     : QObject(parent)
+    , m_toplevelManager(new WlrForeignToplevelManagerV1)
     , m_exportDmabuf(new WlrExportDmabufManagerV1)
 {
     qDBusRegisterMetaType<WaylandIntegration::Stream>();
@@ -61,10 +62,16 @@ WaylandIntegration::WaylandIntegration(QObject *parent)
 
 WaylandIntegration::~WaylandIntegration()
 {
+    m_toplevelManager->deleteLater();
     m_exportDmabuf->deleteLater();
 #ifdef SCREENCAST_ENABLED
     qDeleteAll(m_streams);
 #endif
+}
+
+QVector<WlrForeignToplevelHandleV1 *> WaylandIntegration::toplevels() const
+{
+    return m_toplevels;
 }
 
 WaylandIntegration *WaylandIntegration::instance()
@@ -192,3 +199,15 @@ bool WaylandIntegration::startStreamingImmediately(QScreen *screen)
     return false;
 }
 #endif
+
+void WaylandIntegration::handleToplevel(WlrForeignToplevelHandleV1 *toplevel)
+{
+    m_toplevels.append(toplevel);
+
+    connect(toplevel, &WlrForeignToplevelHandleV1::closed, this, [this, toplevel] {
+        m_toplevels.removeOne(toplevel);
+        Q_EMIT toplevelsChanged();
+    });
+
+    Q_EMIT toplevelsChanged();
+}

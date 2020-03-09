@@ -31,6 +31,8 @@ liri_add_executable(XdgDesktopPortalLiri
         accountportal.h
         appchooserportal.cpp
         appchooserportal.h
+        backgroundportal.cpp
+        backgroundportal.h
         desktopportal.cpp
         desktopportal.h
         emailportal.cpp

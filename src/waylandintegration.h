@@ -10,6 +10,7 @@
 #include <QObject>
 
 #include <LiriWaylandClient/WlrExportDmabufV1>
+#include <LiriWaylandClient/WlrForeignToplevelManagementV1>
 
 QT_FORWARD_DECLARE_CLASS(QScreen)
 
@@ -28,6 +29,8 @@ public:
     explicit WaylandIntegration(QObject *parent = nullptr);
     ~WaylandIntegration();
 
+    QVector<WlrForeignToplevelHandleV1 *> toplevels() const;
+
 #ifdef SCREENCAST_ENABLED
     QVariant streams();
 
@@ -37,7 +40,13 @@ public:
 
     static WaylandIntegration *instance();
 
+Q_SIGNALS:
+    void toplevelsChanged();
+
 private:
+    WlrForeignToplevelManagerV1 *m_toplevelManager = nullptr;
+    QVector<WlrForeignToplevelHandleV1 *> m_toplevels;
+
     WlrExportDmabufManagerV1 *m_exportDmabuf = nullptr;
 #ifdef SCREENCAST_ENABLED
     QMap<QScreen *, WlrExportDmabufFrameV1 *> m_frames;
@@ -45,6 +54,9 @@ private:
 
     bool startStreamingImmediately(QScreen *screen);
 #endif
+
+private Q_SLOTS:
+    void handleToplevel(WlrForeignToplevelHandleV1 *toplevel);
 };
 
 #endif // WAYLANDINTEGRATION_H

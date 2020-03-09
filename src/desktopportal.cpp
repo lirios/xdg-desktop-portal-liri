@@ -24,6 +24,7 @@
 #include "accessportal.h"
 #include "accountportal.h"
 #include "appchooserportal.h"
+#include "backgroundportal.h"
 #include "desktopportal.h"
 #include "emailportal.h"
 #include "filechooserportal.h"
@@ -39,6 +40,7 @@ DesktopPortal::DesktopPortal(QObject *parent)
     , m_access(new AccessPortal(this))
     , m_account(new AccountPortal(this))
     , m_appChooser(new AppChooserPortal(this))
+    , m_background(new BackgroundPortal(this))
     , m_email(new EmailPortal(this))
     , m_fileChooser(new FileChooserPortal(this))
     , m_inhibit(new InhibitPortal(this))

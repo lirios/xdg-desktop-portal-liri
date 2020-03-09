@@ -29,6 +29,7 @@
 class AccessPortal;
 class AccountPortal;
 class AppChooserPortal;
+class BackgroundPortal;
 class EmailPortal;
 class FileChooserPortal;
 class InhibitPortal;
@@ -48,6 +49,7 @@ private:
     AccessPortal *m_access = nullptr;
     AccountPortal *m_account = nullptr;
     AppChooserPortal *m_appChooser = nullptr;
+    BackgroundPortal *m_background = nullptr;
     EmailPortal *m_email = nullptr;
     FileChooserPortal *m_fileChooser = nullptr;
     InhibitPortal *m_inhibit = nullptr;
