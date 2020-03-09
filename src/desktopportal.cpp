@@ -32,6 +32,7 @@
 #include "printportal.h"
 #include "screencastportal.h"
 #include "screenshotportal.h"
+#include "wallpaperportal.h"
 
 DesktopPortal::DesktopPortal(QObject *parent)
     : QObject(parent)
@@ -45,5 +46,6 @@ DesktopPortal::DesktopPortal(QObject *parent)
     , m_print(new PrintPortal(this))
     , m_screenCast(new ScreenCastPortal(this))
     , m_screenshot(new ScreenshotPortal(this))
+    , m_wallpaper(new WallpaperPortal(this))
 {
 }
