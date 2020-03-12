@@ -37,6 +37,7 @@ class NotificationPortal;
 class PrintPortal;
 class ScreenCastPortal;
 class ScreenshotPortal;
+class SettingsPortal;
 class WallpaperPortal;
 
 class DesktopPortal : public QObject
@@ -57,6 +58,7 @@ private:
     PrintPortal *m_print = nullptr;
     ScreenCastPortal *m_screenCast = nullptr;
     ScreenshotPortal *m_screenshot = nullptr;
+    SettingsPortal *m_settings = nullptr;
     WallpaperPortal *m_wallpaper = nullptr;
 };
 

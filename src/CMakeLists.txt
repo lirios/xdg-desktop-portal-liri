@@ -60,6 +60,8 @@ liri_add_executable(XdgDesktopPortalLiri
         screencastportal.h
         screenshotportal.cpp
         screenshotportal.h
+        settingsportal.cpp
+        settingsportal.h
         wallpaperportal.cpp
         wallpaperportal.h
         waylandintegration.cpp
