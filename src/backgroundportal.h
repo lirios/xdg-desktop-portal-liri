@@ -30,8 +30,7 @@ public Q_SLOTS:
     bool EnableAutostart(const QString &app_id,
                          bool enable,
                          const QStringList &commandline,
-                         quint32 flags,
-                         QVariantMap &results);
+                         quint32 flags);
 
 Q_SIGNALS:
     void RunningApplicationsChanged();

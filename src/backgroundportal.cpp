@@ -76,8 +76,7 @@ quint32 BackgroundPortal::NotifyBackground(const QDBusObjectPath &handle,
 bool BackgroundPortal::EnableAutostart(const QString &app_id,
                                        bool enable,
                                        const QStringList &commandline,
-                                       quint32 flags,
-                                       QVariantMap &results)
+                                       quint32 flags)
 {
     qCDebug(lcBackground) << "EnableAutostart called with parameters:";
     qCDebug(lcBackground) << "    app_id: " << app_id;
