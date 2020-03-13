@@ -1,28 +1,12 @@
-/****************************************************************************
- * This file is part of Liri.
- *
- * Copyright (C) 2018 Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
- *
- * $BEGIN_LICENSE:GPL3+$
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- * $END_LICENSE$
- ***************************************************************************/
+// SPDX-FileCopyrightText: 2020 Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
+#include <QQmlApplicationEngine>
 
 #include "accessportal.h"
 #include "logging_p.h"
+#include "quickdialog.h"
 
 // Read the specifications here:
 // https://github.com/flatpak/xdg-desktop-portal/blob/master/data/org.freedesktop.impl.portal.Access.xml
@@ -32,10 +16,14 @@ AccessPortal::AccessPortal(QObject *parent)
 {
 }
 
-uint AccessPortal::AccessDialog(const QDBusObjectPath &handle, const QString &app_id,
-                                const QString &parent_window, const QString &title,
-                                const QString &subtitle, const QString &body,
-                                const QVariantMap &options, QVariantMap &results)
+quint32 AccessPortal::AccessDialog(const QDBusObjectPath &handle,
+                                   const QString &app_id,
+                                   const QString &parent_window,
+                                   const QString &title,
+                                   const QString &subtitle,
+                                   const QString &body,
+                                   const QVariantMap &options,
+                                   QVariantMap &results)
 {
     Q_UNUSED(results)
 
@@ -47,6 +35,26 @@ uint AccessPortal::AccessDialog(const QDBusObjectPath &handle, const QString &ap
     qCDebug(lcAccess) << "    subtitle: " << subtitle;
     qCDebug(lcAccess) << "    body: " << body;
     qCDebug(lcAccess) << "    options: " << options;
+
+    const bool modal = options.value(QStringLiteral("modal"), true).toBool();
+    const QString grantLabel = options.value(QStringLiteral("grant_label"), true).toString();
+    const QString denyLabel = options.value(QStringLiteral("deny_label"), true).toString();
+
+    // TODO: choices
+
+    QQmlApplicationEngine engine(QLatin1String("qrc:/qml/AccessDialog.qml"));
+    QObject *topLevel = engine.rootObjects().at(0);
+    QuickDialog *dialog = qobject_cast<QuickDialog *>(topLevel);
+    dialog->setProperty("title", title);
+    dialog->setProperty("subtitle", subtitle);
+    dialog->setProperty("body", body);
+    dialog->setProperty("modal", modal);
+    if (!grantLabel.isEmpty())
+        dialog->setProperty("grantLabel", grantLabel);
+    if (!denyLabel.isEmpty())
+        dialog->setProperty("denyLabel", denyLabel);
+    if (dialog->exec())
+        return 0;
 
     return 1;
 }

@@ -135,8 +135,9 @@ QDBusVariant SettingsPortal::Read(const QString &schema, const QString &key)
                   qPrintable(schema));
 
         auto message = context->message();
-        auto reply = message.createErrorReply(QDBusError::UnknownProperty,
-                                              QStringLiteral("Namespace %1 is not supported").arg(schema));
+        auto reply = message.createErrorReply(
+                    QDBusError::UnknownProperty,
+                    QStringLiteral("Namespace %1 is not supported").arg(schema));
         QDBusConnection::sessionBus().send(reply);
         return QDBusVariant();
     }
@@ -148,8 +149,9 @@ QDBusVariant SettingsPortal::Read(const QString &schema, const QString &key)
                   qPrintable(key), qPrintable(schema));
 
         auto message = context->message();
-        auto reply = message.createErrorReply(QDBusError::UnknownProperty,
-                                              QStringLiteral("Property %1 from %2 doesn't exist").arg(key, schema));
+        auto reply = message.createErrorReply(
+                    QDBusError::UnknownProperty,
+                    QStringLiteral("Property %1 from %2 doesn't exist").arg(key, schema));
         QDBusConnection::sessionBus().send(reply);
         return QDBusVariant();
     }
