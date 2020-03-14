@@ -24,49 +24,40 @@
 import QtQuick 2.10
 import QtQuick.Controls 2.3
 import Fluid.Controls 1.0 as FluidControls
-import io.liri.Portal 1.0
 
-QuickDialog {
-    id: appChooserDialog
+BaseDialog {
+    id: dialog
 
     property string selectedAppId: ""
 
     width: 400
     height: 400
 
-    visible: true
-
-    Page {
+    ScrollView {
         anchors.fill: parent
+        clip: true
 
-        ScrollView {
-            anchors.fill: parent
-            clip: true
-
-            ListView {
-                model: appsModel
-                header: FluidControls.Subheader {
-                    text: qsTr("Open with")
-                }
-                delegate: FluidControls.ListItem {
-                    icon.name: model.iconName
-                    text: model.name
-                    highlighted: model.preferred
-                    onClicked: appChooserDialog.selectedAppId = model.id
-                }
+        ListView {
+            model: appsModel
+            header: FluidControls.Subheader {
+                text: qsTr("Open with")
+            }
+            delegate: FluidControls.ListItem {
+                icon.name: model.iconName
+                text: model.name
+                highlighted: model.preferred
+                onClicked: dialog.selectedAppId = model.id
             }
         }
+    }
 
-        footer: DialogButtonBox {
-            standardButtons: DialogButtonBox.Ok | DialogButtonBox.Cancel
-            onAccepted: {
-                appChooserDialog.accepted();
-                appChooserDialog.close();
-            }
-            onRejected: {
-                appChooserDialog.rejected();
-                appChooserDialog.close();
-            }
+    footer: DialogButtonBox {
+        standardButtons: DialogButtonBox.Ok | DialogButtonBox.Cancel
+        onAccepted: {
+            dialog.accepted();
+        }
+        onRejected: {
+            dialog.rejected();
         }
     }
 }

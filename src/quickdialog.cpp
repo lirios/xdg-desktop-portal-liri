@@ -22,22 +22,52 @@
  ***************************************************************************/
 
 #include <QEventLoop>
+#include <QQuickItem>
 
 #include "quickdialog.h"
 
-QuickDialog::QuickDialog(QQuickWindow *parent)
-    : QQuickWindow(parent)
+QuickDialog::QuickDialog(QWindow *parent)
+    : QQuickView(parent)
     , m_loop(new QEventLoop(this))
 {
-    connect(this, &QuickDialog::accepted, this, [this] {
-        m_loop->exit(0);
-    });
-    connect(this, &QuickDialog::rejected, this, [this] {
-        m_loop->exit(1);
+    setResizeMode(SizeViewToRootObject);
+
+    connect(this, &QuickDialog::statusChanged, this, [this](QQuickView::Status status) {
+        if (status == Ready) {
+            connect(rootObject(), SIGNAL(accepted()), this, SLOT(handleAccepted()));
+            connect(rootObject(), SIGNAL(rejected()), this, SLOT(handleRejected()));
+        }
     });
 }
 
-int QuickDialog::exec()
+bool QuickDialog::isModal() const
 {
-    return m_loop->exec();
+    return m_modal;
+}
+
+void QuickDialog::setModal(bool value)
+{
+    if (m_modal == value)
+        return;
+
+    m_modal = value;
+    Q_EMIT modalChanged();
+}
+
+bool QuickDialog::exec()
+{
+    show();
+    return m_loop->exec() == 0;
+}
+
+void QuickDialog::handleAccepted()
+{
+    m_loop->exit(0);
+    close();
+}
+
+void QuickDialog::handleRejected()
+{
+    m_loop->exit(1);
+    close();
 }

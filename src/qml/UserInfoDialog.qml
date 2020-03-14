@@ -6,9 +6,8 @@ import QtQuick 2.10
 import QtQuick.Controls 2.3
 import Fluid.Controls 1.0 as FluidControls
 import QtAccountsService 1.0
-import io.liri.Portal 1.0
 
-QuickDialog {
+BaseDialog {
     id: dialog
 
     property string appName: ""
@@ -16,74 +15,55 @@ QuickDialog {
 
     title: qsTr("Share user information")
 
-    width: page.implicitWidth
-    height: page.implicitHeight
-
-    visible: true
-
     UserAccount {
         id: userAccount
     }
 
-    Page {
-        id: page
-
-        anchors.left: parent.left
-        anchors.top: parent.top
-
-        header: FluidControls.DialogLabel {
-            text: qsTr("Share user information")
-            padding: 24
+    Column {
+        FluidControls.BodyLabel {
+            text: qsTr("Do you really want to share this personal information with the \"%1\" application?").arg(appName || qsTr("n.a."))
         }
 
-        Column {
-            FluidControls.BodyLabel {
-                text: qsTr("Do you really want to share this personal information with the \"%1\" application?").arg(appName || qsTr("n.a."))
+        FluidControls.BodyLabel {
+            text: qsTr("Reason: %1").arg(reason)
+            visible: reason !== ""
+        }
+
+        Row {
+            Image {
+                source: userAccount.iconFileName ? "file://" + userAccount.iconFileName : ""
             }
 
-            FluidControls.BodyLabel {
-                text: qsTr("Reason: %1").arg(reason)
-                visible: reason !== ""
-            }
-
-            Row {
-                Image {
-                    source: userAccount.iconFileName ? "file://" + userAccount.iconFileName : ""
+            Column {
+                FluidControls.TitleLabel {
+                    text: userAccount.displayName
                 }
 
-                Column {
-                    FluidControls.TitleLabel {
-                        text: userAccount.displayName
-                    }
-
-                    FluidControls.CaptionLabel {
-                        text: userAccount.userName
-                    }
+                FluidControls.CaptionLabel {
+                    text: userAccount.userName
                 }
             }
         }
+    }
 
-        footer: DialogButtonBox {
-            Button {
-                text: qsTr("Cancel")
+    footer: DialogButtonBox {
+        Button {
+            text: qsTr("Cancel")
 
-                DialogButtonBox.buttonRole: DialogButtonBox.DestructiveRole
+            DialogButtonBox.buttonRole: DialogButtonBox.DestructiveRole
 
-                onClicked: {
-                    dialog.rejected();
-                    dialog.close();
-                }
+            onClicked: {
+                dialog.rejected();
             }
+        }
 
-            Button {
-                text: qsTr("Share")
+        Button {
+            text: qsTr("Share")
 
-                DialogButtonBox.buttonRole: DialogButtonBox.AcceptRole
+            DialogButtonBox.buttonRole: DialogButtonBox.AcceptRole
 
-                onClicked: {
-                    dialog.accepted();
-                    dialog.close();
-                }
+            onClicked: {
+                dialog.accepted();
             }
         }
     }

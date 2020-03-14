@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include <QQmlApplicationEngine>
+#include <QQuickItem>
 
 #include "accessportal.h"
 #include "logging_p.h"
@@ -42,19 +42,24 @@ quint32 AccessPortal::AccessDialog(const QDBusObjectPath &handle,
 
     // TODO: choices
 
-    QQmlApplicationEngine engine(QLatin1String("qrc:/qml/AccessDialog.qml"));
-    QObject *topLevel = engine.rootObjects().at(0);
-    QuickDialog *dialog = qobject_cast<QuickDialog *>(topLevel);
-    dialog->setProperty("title", title);
-    dialog->setProperty("subtitle", subtitle);
-    dialog->setProperty("body", body);
-    dialog->setProperty("modal", modal);
+    auto *dialog = new QuickDialog();
+    dialog->setTitle(title);
+    dialog->setModal(modal);
+    dialog->rootObject()->setProperty("title", title);
+    dialog->rootObject()->setProperty("subtitle", subtitle);
+    dialog->rootObject()->setProperty("body", body);
+    dialog->rootObject()->setProperty("modal", modal);
+    dialog->setSource(QUrl(QLatin1String("qrc:/qml/AccessDialog.qml")));
     if (!grantLabel.isEmpty())
-        dialog->setProperty("grantLabel", grantLabel);
+        dialog->rootObject()->setProperty("grantLabel", grantLabel);
     if (!denyLabel.isEmpty())
-        dialog->setProperty("denyLabel", denyLabel);
-    if (dialog->exec())
+        dialog->rootObject()->setProperty("denyLabel", denyLabel);
+    if (dialog->exec()) {
+        dialog->deleteLater();
         return 0;
+    }
+
+    dialog->deleteLater();
 
     return 1;
 }

@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include <QQmlApplicationEngine>
+#include <QQuickItem>
 #include <QStandardPaths>
 
 #include <Qt5AccountsService/UserAccount>
@@ -39,11 +39,10 @@ quint32 AccountPortal::GetUserInformation(const QDBusObjectPath &handle,
 
     const QString reason = options.value(QStringLiteral("reason")).toString();
 
-    QQmlApplicationEngine engine(QLatin1String("qrc:/qml/UserInfoDialog.qml"));
-    QObject *topLevel = engine.rootObjects().at(0);
-    QuickDialog *dialog = qobject_cast<QuickDialog *>(topLevel);
-    dialog->setProperty("appName", desktop->name());
-    dialog->setProperty("reason", reason);
+    auto *dialog = new QuickDialog();
+    dialog->rootObject()->setProperty("appName", desktop->name());
+    dialog->rootObject()->setProperty("reason", reason);
+    dialog->setSource(QUrl(QLatin1String("qrc:/qml/UserInfoDialog.qml")));
     if (dialog->exec()) {
         auto *account = new QtAccountsService::UserAccount();
         results.insert(QStringLiteral("id"), account->userId());

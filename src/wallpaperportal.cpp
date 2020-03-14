@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include <QQmlApplicationEngine>
+#include <QQuickItem>
 
 #include <Qt5GSettings/Qt5GSettings>
 
@@ -36,11 +36,10 @@ quint32 WallpaperPortal::SetWallpaperURI(const QDBusObjectPath &handle,
     const QString setOn = options.value(QStringLiteral("set-on"), QStringLiteral("both")).toString();
 
     if (showPreview) {
-        QQmlApplicationEngine engine(QLatin1String("qrc:/qml/WallpaperDialog.qml"));
-        QObject *topLevel = engine.rootObjects().at(0);
-        QuickDialog *dialog = qobject_cast<QuickDialog *>(topLevel);
-        dialog->setProperty("setOn", setOn);
-        dialog->setProperty("uri", uri);
+        auto *dialog = new QuickDialog();
+        dialog->rootObject()->setProperty("setOn", setOn);
+        dialog->rootObject()->setProperty("uri", uri);
+        dialog->setSource(QUrl(QLatin1String("qrc:/qml/WallpaperDialog.qml")));
         if (dialog->exec()) {
             setWallpaper(setOn, uri);
             return 0;

@@ -24,24 +24,32 @@
 #ifndef QUICKDIALOG_H
 #define QUICKDIALOG_H
 
-#include <QQuickWindow>
+#include <QQuickView>
 
 class QEventLoop;
 
-class QuickDialog : public QQuickWindow
+class QuickDialog : public QQuickView
 {
     Q_OBJECT
+    Q_PROPERTY(bool modal READ isModal WRITE setModal NOTIFY modalChanged)
 public:
-    explicit QuickDialog(QQuickWindow *parent = nullptr);
+    explicit QuickDialog(QWindow *parent = nullptr);
 
-    int exec();
+    bool isModal() const;
+    void setModal(bool value);
+
+    bool exec();
 
 Q_SIGNALS:
-    void accepted();
-    void rejected();
+    void modalChanged();
 
 private:
+    bool m_modal = false;
     QEventLoop *m_loop;
+
+private Q_SLOTS:
+    void handleAccepted();
+    void handleRejected();
 };
 
 #endif // QUICKDIALOG_H

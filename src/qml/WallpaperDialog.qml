@@ -5,9 +5,8 @@
 import QtQuick 2.10
 import QtQuick.Controls 2.3
 import Fluid.Controls 1.0 as FluidControls
-import io.liri.Portal 1.0
 
-QuickDialog {
+BaseDialog {
     id: dialog
 
     property string setOn: "both"
@@ -15,63 +14,44 @@ QuickDialog {
 
     title: qsTr("Set Background")
 
-    width: page.implicitWidth
-    height: page.implicitHeight
-
-    visible: true
-
-    Page {
-        id: page
-
-        anchors.left: parent.left
-        anchors.top: parent.top
-
-        header: FluidControls.DialogLabel {
-            text: qsTr("Set Background")
-            padding: 24
-        }
-
-        Column {
-            Label {
-                text: {
-                    if (setOn === "background")
-                        qsTr("Please confirm if you want to change the wallpaper of your desktop.")
-                    else if (setOn === "lockscreen")
-                        qsTr("Please confirm if you want to change the background of the lock screen.")
-                    else
-                        qsTr("Please confirm if you want to change the wallpaper of your desktop and the background of the lock screen.")
-                }
-            }
-
-            Image {
-                id: image
-
-                width: 500
-                height: 300
+    Column {
+        Label {
+            text: {
+                if (setOn === "background")
+                    qsTr("Please confirm if you want to change the wallpaper of your desktop.")
+                else if (setOn === "lockscreen")
+                    qsTr("Please confirm if you want to change the background of the lock screen.")
+                else
+                    qsTr("Please confirm if you want to change the wallpaper of your desktop and the background of the lock screen.")
             }
         }
 
-        footer: DialogButtonBox {
-            Button {
-                text: qsTr("Cancel")
+        Image {
+            id: image
 
-                DialogButtonBox.buttonRole: DialogButtonBox.DestructiveRole
+            width: 500
+            height: 300
+        }
+    }
 
-                onClicked: {
-                    dialog.rejected();
-                    dialog.close();
-                }
+    footer: DialogButtonBox {
+        Button {
+            text: qsTr("Cancel")
+
+            DialogButtonBox.buttonRole: DialogButtonBox.DestructiveRole
+
+            onClicked: {
+                dialog.rejected();
             }
+        }
 
-            Button {
-                text: qsTr("Set")
+        Button {
+            text: qsTr("Set")
 
-                DialogButtonBox.buttonRole: DialogButtonBox.AcceptRole
+            DialogButtonBox.buttonRole: DialogButtonBox.AcceptRole
 
-                onClicked: {
-                    dialog.accepted();
-                    dialog.close();
-                }
+            onClicked: {
+                dialog.accepted();
             }
         }
     }

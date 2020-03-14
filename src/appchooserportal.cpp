@@ -21,8 +21,8 @@
  * $END_LICENSE$
  ***************************************************************************/
 
-#include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include <QQuickItem>
 
 #include "appchooserportal.h"
 #include "implementation/appsmodel.h"
@@ -52,13 +52,11 @@ quint32 AppChooserPortal::ChooseApplication(const QDBusObjectPath &handle,
     qCDebug(lcAppChooser) << "    choices: " << choices;
     qCDebug(lcAppChooser) << "    options: " << options;
 
-    QQmlApplicationEngine engine(QLatin1String("qrc:/qml/AppChooserDialog.qml"));
-    engine.rootContext()->setContextProperty(QLatin1String("appsModel"), m_appsModel);
-    QObject *topLevel = engine.rootObjects().at(0);
-    QuickDialog *dialog = qobject_cast<QuickDialog *>(topLevel);
+    auto *dialog = new QuickDialog();
+    dialog->rootContext()->setContextProperty(QLatin1String("appsModel"), m_appsModel);
+    dialog->setSource(QUrl(QLatin1String("qrc:/qml/AppChooserDialog.qml")));
     if (dialog->exec()) {
-        results.insert(QLatin1String("choice"), topLevel->property("selectedAppId").toString());
-        dialog->close();
+        results.insert(QLatin1String("choice"), dialog->rootObject()->property("selectedAppId").toString());
         dialog->deleteLater();
         return 0;
     }
