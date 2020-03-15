@@ -33,6 +33,7 @@ class BackgroundPortal;
 class EmailPortal;
 class FileChooserPortal;
 class InhibitPortal;
+class LockdownPortal;
 class NotificationPortal;
 class PrintPortal;
 class ScreenCastPortal;
@@ -54,6 +55,7 @@ private:
     EmailPortal *m_email = nullptr;
     FileChooserPortal *m_fileChooser = nullptr;
     InhibitPortal *m_inhibit = nullptr;
+    LockdownPortal *m_lockdown = nullptr;
     NotificationPortal *m_notification = nullptr;
     PrintPortal *m_print = nullptr;
     ScreenCastPortal *m_screenCast = nullptr;

@@ -43,6 +43,8 @@ liri_add_executable(XdgDesktopPortalLiri
         implementation/appsmodel.h
         inhibitportal.cpp
         inhibitportal.h
+        lockdownportal.cpp
+        lockdownportal.h
         logging.cpp
         logging_p.h
         main.cpp

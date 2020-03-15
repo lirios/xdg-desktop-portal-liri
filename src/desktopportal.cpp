@@ -29,6 +29,7 @@
 #include "emailportal.h"
 #include "filechooserportal.h"
 #include "inhibitportal.h"
+#include "lockdownportal.h"
 #include "notificationportal.h"
 #include "printportal.h"
 #include "screencastportal.h"
@@ -45,6 +46,7 @@ DesktopPortal::DesktopPortal(QObject *parent)
     , m_email(new EmailPortal(this))
     , m_fileChooser(new FileChooserPortal(this))
     , m_inhibit(new InhibitPortal(this))
+    , m_lockdown(new LockdownPortal(this))
     , m_notification(new NotificationPortal(this))
     , m_print(new PrintPortal(this))
     , m_screenCast(new ScreenCastPortal(this))
