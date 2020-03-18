@@ -39,6 +39,8 @@ class LockdownPortal;
 class NotificationPortal;
 class PrintPortal;
 class ScreenCastPortal;
+class ScreenshotClient;
+class ScreenshotImageProvider;
 class ScreenshotPortal;
 class SettingsPortal;
 class WallpaperPortal;
@@ -50,6 +52,7 @@ public:
     explicit DesktopPortal(QObject *parent = nullptr);
 
     QQmlEngine *engine() const;
+    ScreenshotClient *screenshotClient() const;
 
     static DesktopPortal *instance();
 
@@ -70,6 +73,9 @@ private:
     ScreenshotPortal *m_screenshot = nullptr;
     SettingsPortal *m_settings = nullptr;
     WallpaperPortal *m_wallpaper = nullptr;
+
+    ScreenshotClient *m_screenshotClient = nullptr;
+    ScreenshotImageProvider *m_screenshotImageProvider = nullptr;
 };
 
 #endif // DESKTOPPORTAL_H

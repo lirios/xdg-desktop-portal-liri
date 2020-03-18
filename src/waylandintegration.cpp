@@ -53,6 +53,7 @@ Q_DECLARE_METATYPE(WaylandIntegration::Streams)
 
 WaylandIntegration::WaylandIntegration(QObject *parent)
     : QObject(parent)
+    , m_colorPicker(new LiriColorPickerManager)
     , m_toplevelManager(new WlrForeignToplevelManagerV1)
     , m_exportDmabuf(new WlrExportDmabufManagerV1)
 {
@@ -62,11 +63,17 @@ WaylandIntegration::WaylandIntegration(QObject *parent)
 
 WaylandIntegration::~WaylandIntegration()
 {
+    m_colorPicker->deleteLater();
     m_toplevelManager->deleteLater();
     m_exportDmabuf->deleteLater();
 #ifdef SCREENCAST_ENABLED
     qDeleteAll(m_streams);
 #endif
+}
+
+LiriColorPickerManager *WaylandIntegration::colorPicker() const
+{
+    return m_colorPicker;
 }
 
 QVector<WlrForeignToplevelHandleV1 *> WaylandIntegration::toplevels() const

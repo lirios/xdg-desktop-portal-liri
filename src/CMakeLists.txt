@@ -60,6 +60,10 @@ liri_add_executable(XdgDesktopPortalLiri
         session.h
         screencastportal.cpp
         screencastportal.h
+        screenshotclient.cpp
+        screenshotclient.h
+        screenshotimageprovider.cpp
+        screenshotimageprovider.h
         screenshotportal.cpp
         screenshotportal.h
         settingsportal.cpp

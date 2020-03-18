@@ -9,6 +9,7 @@
 
 #include <QObject>
 
+#include <LiriWaylandClient/LiriColorPicker>
 #include <LiriWaylandClient/WlrExportDmabufV1>
 #include <LiriWaylandClient/WlrForeignToplevelManagementV1>
 
@@ -29,6 +30,8 @@ public:
     explicit WaylandIntegration(QObject *parent = nullptr);
     ~WaylandIntegration();
 
+    LiriColorPickerManager *colorPicker() const;
+
     QVector<WlrForeignToplevelHandleV1 *> toplevels() const;
 
 #ifdef SCREENCAST_ENABLED
@@ -44,6 +47,7 @@ Q_SIGNALS:
     void toplevelsChanged();
 
 private:
+    LiriColorPickerManager *m_colorPicker = nullptr;
     WlrForeignToplevelManagerV1 *m_toplevelManager = nullptr;
     QVector<WlrForeignToplevelHandleV1 *> m_toplevels;
 

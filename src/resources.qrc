@@ -10,6 +10,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
         <file>qml/AppChooserDialog.qml</file>
         <file>qml/BaseDialog.qml</file>
         <file>qml/WallpaperDialog.qml</file>
+        <file>qml/ScreenshotDialog.qml</file>
         <file>qml/UserInfoDialog.qml</file>
     </qresource>
 </RCC>

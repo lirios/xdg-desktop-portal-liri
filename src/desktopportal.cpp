@@ -22,6 +22,7 @@
  ***************************************************************************/
 
 #include <QCoreApplication>
+#include <QQmlContext>
 #include <QQmlEngine>
 
 #include "accessportal.h"
@@ -35,6 +36,8 @@
 #include "lockdownportal.h"
 #include "notificationportal.h"
 #include "printportal.h"
+#include "screenshotclient.h"
+#include "screenshotimageprovider.h"
 #include "screencastportal.h"
 #include "screenshotportal.h"
 #include "settingsportal.h"
@@ -59,16 +62,30 @@ DesktopPortal::DesktopPortal(QObject *parent)
     , m_screenshot(new ScreenshotPortal(this))
     , m_settings(new SettingsPortal(this))
     , m_wallpaper(new WallpaperPortal(this))
+    , m_screenshotClient(new ScreenshotClient(this))
+    , m_screenshotImageProvider(new ScreenshotImageProvider())
 {
+    m_engine->addImageProvider(QStringLiteral("screenshooter"), m_screenshotImageProvider);
+    m_engine->rootContext()->setContextProperty(QStringLiteral("Screenshooter"), m_screenshotClient);
+
     connect(m_engine, &QQmlEngine::quit,
             QCoreApplication::instance(), &QCoreApplication::quit);
     connect(m_engine, &QQmlEngine::exit,
             QCoreApplication::instance(), &QCoreApplication::exit);
+
+    connect(m_screenshotClient, &ScreenshotClient::screenshotDone, this, [this] {
+        m_screenshotImageProvider->image = m_screenshotClient->image();
+    });
 }
 
 QQmlEngine *DesktopPortal::engine() const
 {
     return m_engine;
+}
+
+ScreenshotClient *DesktopPortal::screenshotClient() const
+{
+    return m_screenshotClient;
 }
 
 DesktopPortal *DesktopPortal::instance()
