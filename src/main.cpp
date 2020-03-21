@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
     // Register service
     QDBusConnection sessionBus = QDBusConnection::sessionBus();
     if (sessionBus.registerService(QStringLiteral("org.freedesktop.impl.portal.desktop.liri"))) {
-        DesktopPortal *desktopPortal = new DesktopPortal(&app);
+        auto *desktopPortal = DesktopPortal::instance();
         if (sessionBus.registerObject(QStringLiteral("/org/freedesktop/portal/desktop"), desktopPortal, QDBusConnection::ExportAdaptors)) {
             qCDebug(lcPortal) << "XDG desktop portal for Liri registered";
         } else {

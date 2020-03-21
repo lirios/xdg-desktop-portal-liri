@@ -82,6 +82,7 @@ liri_add_executable(XdgDesktopPortalLiri
         Qt5::Gui
         Qt5::Widgets
         Qt5::PrintSupport
+        Qt5::Qml
         Qt5::Quick
         Qt5::QuickControls2
         Liri::Qt5AccountsService

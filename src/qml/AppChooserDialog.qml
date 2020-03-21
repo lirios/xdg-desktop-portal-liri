@@ -30,34 +30,37 @@ BaseDialog {
 
     property string selectedAppId: ""
 
+    title: qsTr("Open with")
+
     width: 400
     height: 400
 
-    ScrollView {
+    Page {
         anchors.fill: parent
-        clip: true
 
-        ListView {
-            model: appsModel
-            header: FluidControls.Subheader {
-                text: qsTr("Open with")
-            }
-            delegate: FluidControls.ListItem {
-                icon.name: model.iconName
-                text: model.name
-                highlighted: model.preferred
-                onClicked: dialog.selectedAppId = model.id
+        ScrollView {
+            anchors.fill: parent
+            clip: true
+
+            ListView {
+                model: appsModel
+                delegate: FluidControls.ListItem {
+                    icon.name: model.iconName
+                    text: model.name
+                    highlighted: model.preferred
+                    onClicked: dialog.selectedAppId = model.id
+                }
             }
         }
-    }
 
-    footer: DialogButtonBox {
-        standardButtons: DialogButtonBox.Ok | DialogButtonBox.Cancel
-        onAccepted: {
-            dialog.accepted();
-        }
-        onRejected: {
-            dialog.rejected();
+        footer: DialogButtonBox {
+            standardButtons: DialogButtonBox.Ok | DialogButtonBox.Cancel
+            onAccepted: {
+                dialog.accepted();
+            }
+            onRejected: {
+                dialog.rejected();
+            }
         }
     }
 }

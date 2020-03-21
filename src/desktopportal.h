@@ -26,6 +26,8 @@
 
 #include <QObject>
 
+class QQmlEngine;
+
 class AccessPortal;
 class AccountPortal;
 class AppChooserPortal;
@@ -47,7 +49,13 @@ class DesktopPortal : public QObject
 public:
     explicit DesktopPortal(QObject *parent = nullptr);
 
+    QQmlEngine *engine() const;
+
+    static DesktopPortal *instance();
+
 private:
+    QQmlEngine *m_engine = nullptr;
+
     AccessPortal *m_access = nullptr;
     AccountPortal *m_account = nullptr;
     AppChooserPortal *m_appChooser = nullptr;

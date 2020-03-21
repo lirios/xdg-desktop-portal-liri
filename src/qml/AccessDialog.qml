@@ -14,42 +14,49 @@ BaseDialog {
     property alias grantLabel: grantButton.text
     property alias denyLabel: denyButton.text
 
-    Column {
-        FluidControls.BodyLabel {
-            id: subtitleLabel
+    Page {
+        id: page
 
-            visible: text !== ""
-        }
+        anchors.left: parent.left
+        anchors.top: parent.top
 
-        FluidControls.BodyLabel {
-            id: bodyLabel
+        Column {
+            FluidControls.BodyLabel {
+                id: subtitleLabel
 
-            visible: text !== ""
-        }
-    }
+                visible: text !== ""
+            }
 
-    footer: DialogButtonBox {
-        Button {
-            id: denyButton
+            FluidControls.BodyLabel {
+                id: bodyLabel
 
-            text: qsTr("Deny")
-
-            DialogButtonBox.buttonRole: DialogButtonBox.DestructiveRole
-
-            onClicked: {
-                dialog.rejected();
+                visible: text !== ""
             }
         }
 
-        Button {
-            id: acceptButton
+        footer: DialogButtonBox {
+            Button {
+                id: denyButton
 
-            text: qsTr("Accept")
+                text: qsTr("Deny")
 
-            DialogButtonBox.buttonRole: DialogButtonBox.AcceptRole
+                DialogButtonBox.buttonRole: DialogButtonBox.DestructiveRole
 
-            onClicked: {
-                dialog.accepted();
+                onClicked: {
+                    dialog.rejected();
+                }
+            }
+
+            Button {
+                id: acceptButton
+
+                text: qsTr("Accept")
+
+                DialogButtonBox.buttonRole: DialogButtonBox.AcceptRole
+
+                onClicked: {
+                    dialog.accepted();
+                }
             }
         }
     }

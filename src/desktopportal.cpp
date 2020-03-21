@@ -21,6 +21,9 @@
  * $END_LICENSE$
  ***************************************************************************/
 
+#include <QCoreApplication>
+#include <QQmlEngine>
+
 #include "accessportal.h"
 #include "accountportal.h"
 #include "appchooserportal.h"
@@ -37,8 +40,11 @@
 #include "settingsportal.h"
 #include "wallpaperportal.h"
 
+Q_GLOBAL_STATIC(DesktopPortal, sDesktopPortal)
+
 DesktopPortal::DesktopPortal(QObject *parent)
     : QObject(parent)
+    , m_engine(new QQmlEngine(this))
     , m_access(new AccessPortal(this))
     , m_account(new AccountPortal(this))
     , m_appChooser(new AppChooserPortal(this))
@@ -54,4 +60,18 @@ DesktopPortal::DesktopPortal(QObject *parent)
     , m_settings(new SettingsPortal(this))
     , m_wallpaper(new WallpaperPortal(this))
 {
+    connect(m_engine, &QQmlEngine::quit,
+            QCoreApplication::instance(), &QCoreApplication::quit);
+    connect(m_engine, &QQmlEngine::exit,
+            QCoreApplication::instance(), &QCoreApplication::exit);
+}
+
+QQmlEngine *DesktopPortal::engine() const
+{
+    return m_engine;
+}
+
+DesktopPortal *DesktopPortal::instance()
+{
+    return sDesktopPortal();
 }

@@ -39,17 +39,19 @@ quint32 AccountPortal::GetUserInformation(const QDBusObjectPath &handle,
 
     const QString reason = options.value(QStringLiteral("reason")).toString();
 
-    auto *dialog = new QuickDialog();
+    auto *dialog = new QuickDialog(QUrl(QLatin1String("qrc:/qml/UserInfoDialog.qml")));
     dialog->rootObject()->setProperty("appName", desktop->name());
     dialog->rootObject()->setProperty("reason", reason);
-    dialog->setSource(QUrl(QLatin1String("qrc:/qml/UserInfoDialog.qml")));
     if (dialog->exec()) {
         auto *account = new QtAccountsService::UserAccount();
         results.insert(QStringLiteral("id"), account->userId());
         results.insert(QStringLiteral("name"), account->realName());
         results.insert(QStringLiteral("image"), account->iconFileName());
+
+        dialog->deleteLater();
         return 0;
     }
 
+    dialog->deleteLater();
     return 1;
 }

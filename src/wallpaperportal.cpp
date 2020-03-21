@@ -36,15 +36,16 @@ quint32 WallpaperPortal::SetWallpaperURI(const QDBusObjectPath &handle,
     const QString setOn = options.value(QStringLiteral("set-on"), QStringLiteral("both")).toString();
 
     if (showPreview) {
-        auto *dialog = new QuickDialog();
+        auto *dialog = new QuickDialog(QUrl(QLatin1String("qrc:/qml/WallpaperDialog.qml")));
         dialog->rootObject()->setProperty("setOn", setOn);
         dialog->rootObject()->setProperty("uri", uri);
-        dialog->setSource(QUrl(QLatin1String("qrc:/qml/WallpaperDialog.qml")));
         if (dialog->exec()) {
             setWallpaper(setOn, uri);
+            dialog->deleteLater();
             return 0;
         }
 
+        dialog->deleteLater();
         return 1;
     } else {
         setWallpaper(setOn, uri);

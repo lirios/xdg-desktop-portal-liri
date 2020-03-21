@@ -14,44 +14,49 @@ BaseDialog {
 
     title: qsTr("Set Background")
 
-    Column {
-        Label {
-            text: {
-                if (setOn === "background")
-                    qsTr("Please confirm if you want to change the wallpaper of your desktop.")
-                else if (setOn === "lockscreen")
-                    qsTr("Please confirm if you want to change the background of the lock screen.")
-                else
-                    qsTr("Please confirm if you want to change the wallpaper of your desktop and the background of the lock screen.")
+    Page {
+        anchors.left: parent.left
+        anchors.top: parent.top
+
+        Column {
+            Label {
+                text: {
+                    if (setOn === "background")
+                        qsTr("Please confirm if you want to change the wallpaper of your desktop.")
+                    else if (setOn === "lockscreen")
+                        qsTr("Please confirm if you want to change the background of the lock screen.")
+                    else
+                        qsTr("Please confirm if you want to change the wallpaper of your desktop and the background of the lock screen.")
+                }
+            }
+
+            Image {
+                id: image
+
+                width: 500
+                height: 300
             }
         }
 
-        Image {
-            id: image
+        footer: DialogButtonBox {
+            Button {
+                text: qsTr("Cancel")
 
-            width: 500
-            height: 300
-        }
-    }
+                DialogButtonBox.buttonRole: DialogButtonBox.DestructiveRole
 
-    footer: DialogButtonBox {
-        Button {
-            text: qsTr("Cancel")
-
-            DialogButtonBox.buttonRole: DialogButtonBox.DestructiveRole
-
-            onClicked: {
-                dialog.rejected();
+                onClicked: {
+                    dialog.rejected();
+                }
             }
-        }
 
-        Button {
-            text: qsTr("Set")
+            Button {
+                text: qsTr("Set")
 
-            DialogButtonBox.buttonRole: DialogButtonBox.AcceptRole
+                DialogButtonBox.buttonRole: DialogButtonBox.AcceptRole
 
-            onClicked: {
-                dialog.accepted();
+                onClicked: {
+                    dialog.accepted();
+                }
             }
         }
     }

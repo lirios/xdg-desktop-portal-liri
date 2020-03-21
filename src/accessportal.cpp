@@ -42,14 +42,12 @@ quint32 AccessPortal::AccessDialog(const QDBusObjectPath &handle,
 
     // TODO: choices
 
-    auto *dialog = new QuickDialog();
+    auto *dialog = new QuickDialog(QUrl(QLatin1String("qrc:/qml/AccessDialog.qml")));
     dialog->setTitle(title);
     dialog->setModal(modal);
     dialog->rootObject()->setProperty("title", title);
     dialog->rootObject()->setProperty("subtitle", subtitle);
     dialog->rootObject()->setProperty("body", body);
-    dialog->rootObject()->setProperty("modal", modal);
-    dialog->setSource(QUrl(QLatin1String("qrc:/qml/AccessDialog.qml")));
     if (!grantLabel.isEmpty())
         dialog->rootObject()->setProperty("grantLabel", grantLabel);
     if (!denyLabel.isEmpty())
@@ -60,6 +58,5 @@ quint32 AccessPortal::AccessDialog(const QDBusObjectPath &handle,
     }
 
     dialog->deleteLater();
-
     return 1;
 }

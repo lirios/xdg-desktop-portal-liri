@@ -52,9 +52,8 @@ quint32 AppChooserPortal::ChooseApplication(const QDBusObjectPath &handle,
     qCDebug(lcAppChooser) << "    choices: " << choices;
     qCDebug(lcAppChooser) << "    options: " << options;
 
-    auto *dialog = new QuickDialog();
+    auto *dialog = new QuickDialog(QUrl(QLatin1String("qrc:/qml/AppChooserDialog.qml")));
     dialog->rootContext()->setContextProperty(QLatin1String("appsModel"), m_appsModel);
-    dialog->setSource(QUrl(QLatin1String("qrc:/qml/AppChooserDialog.qml")));
     if (dialog->exec()) {
         results.insert(QLatin1String("choice"), dialog->rootObject()->property("selectedAppId").toString());
         dialog->deleteLater();
@@ -62,7 +61,6 @@ quint32 AppChooserPortal::ChooseApplication(const QDBusObjectPath &handle,
     }
 
     dialog->deleteLater();
-
     return 1;
 }
 
