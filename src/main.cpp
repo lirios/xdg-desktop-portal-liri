@@ -36,6 +36,9 @@ int main(int argc, char *argv[])
     qputenv("QT_QPA_PLATFORM", QByteArray("wayland"));
     qputenv("QT_WAYLAND_USE_BYPASSWINDOWMANAGERHINT", QByteArray("1"));
 
+    // HiDPI scaling
+    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+
     // Application
     QApplication app(argc, argv);
     app.setApplicationName(QStringLiteral("XDG Desktop Portal"));
