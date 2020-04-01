@@ -114,20 +114,18 @@ quint32 ScreenshotPortal::PickColor(const QDBusObjectPath &handle,
         return 1;
     }
 
-    quint32 returnedSerial = 0;
     QColor selectedColor;
 
     // Pick color interactively and wait for an answer within 30 seconds
-    quint32 ourSerial = colorPicker->pickInteractively(QGuiApplication::primaryScreen());
+    colorPicker->pickInteractively();
     QEventLoop loop;
-    connect(colorPicker, &LiriColorPickerManager::colorPicked, this, [&](quint32 serial, const QColor &color) {
-        returnedSerial = serial;
+    connect(colorPicker, &LiriColorPickerManager::colorPicked, this, [&](const QColor &color) {
         selectedColor = color;
         loop.quit();
     });
     QTimer::singleShot(30000, &loop, &QEventLoop::quit);
     loop.exec();
-    if (returnedSerial == ourSerial && selectedColor.isValid()) {
+    if (selectedColor.isValid()) {
         ColorRGB color;
         color.red = selectedColor.redF();
         color.green = selectedColor.greenF();
