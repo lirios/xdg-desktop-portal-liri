@@ -16,6 +16,10 @@ endif()
 
 find_package(PipeWire)
 
+if(TARGET PkgConfig::PipeWire)
+    find_package(Libdrm REQUIRED)
+endif()
+
 set(screencast_SOURCES
     screencaststream.cpp
     screencaststream.h
@@ -100,5 +104,5 @@ if(TARGET PkgConfig::PipeWire)
     liri_extend_target("XdgDesktopPortalLiri"
         DEFINES SCREENCAST_ENABLED
         SOURCES "${screencast_SOURCES}"
-        LIBRARIES "PkgConfig::PipeWire")
+        LIBRARIES "PkgConfig::PipeWire;PkgConfig::Libdrm")
 endif()
