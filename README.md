@@ -26,6 +26,11 @@ And the following modules:
  * [libliri](https://github.com/lirios/libliri.git)
  * [liri-wayland](https://github.com/lirios/wayland.git)
 
+Optional dependencies:
+
+ * [pipewire](https://gitlab.freedesktop.org/pipewire/pipewire/) >= 0.3
+ * [libdrm](https://wiki.freedesktop.org/dri/) (required when pipewire is found)
+
 Runtime dependencies:
 
  * [flatpak](https://github.com/flatpak/flatpak)
