@@ -3,7 +3,7 @@ xdg-desktop-portal-liri
 
 [![License](https://img.shields.io/badge/license-GPLv3.0-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
 [![GitHub release](https://img.shields.io/github/release/lirios/xdg-desktop-portal-liri.svg)](https://github.com/lirios/xdg-desktop-portal-liri)
-[![Build Status](https://travis-ci.org/lirios/xdg-desktop-portal-liri.svg?branch=develop)](https://travis-ci.org/lirios/xdg-desktop-portal-liri)
+[![CI](https://github.com/lirios/xdg-desktop-portal/workflows/CI/badge.svg?branch=develop)](https://github.com/lirios/xdg-desktop-portal/actions?query=workflow%3ACI)
 [![GitHub issues](https://img.shields.io/github/issues/lirios/xdg-desktop-portal-liri.svg)](https://github.com/lirios/xdg-desktop-portal-liri/issues)
 
 A backend implementation of [xdg-desktop-portal](https://github.com/flatpak/xdg-desktop-portal)
