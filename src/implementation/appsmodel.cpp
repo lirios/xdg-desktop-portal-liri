@@ -21,10 +21,12 @@
  * $END_LICENSE$
  ***************************************************************************/
 
-#include <QSettings>
 #include <QStandardPaths>
 
+#include <LiriXdg/DesktopFile>
+
 #include "appsmodel.h"
+#include "logging_p.h"
 
 AppItem::AppItem(QObject *parent)
     : QObject(parent)
@@ -82,29 +84,32 @@ void AppsModel::populate(const QStringList &choices, const QString &defaultAppId
     qDeleteAll(m_apps);
     endResetModel();
 
-    for (const QString &choice : choices) {
-        const QString desktopFileBaseName = choice + QLatin1String(".desktop");
+    for (const auto &appId : choices) {
+        const QString desktopFileBaseName = appId + QLatin1String(".desktop");
         const QStringList desktopFilesLocations =
                 QStandardPaths::locateAll(QStandardPaths::ApplicationsLocation,
                                           desktopFileBaseName, QStandardPaths::LocateFile);
 
-        for (const QString &desktopFileName : desktopFilesLocations) {
-            QString name, iconName;
+        for (const auto &desktopFileName : desktopFilesLocations) {
+            auto *desktop = Liri::DesktopFileCache::getFile(desktopFileName);
+            if (!desktop) {
+                qCWarning(lcAppChooser) << "Unable to open" << desktopFileName;
+                continue;
+            }
 
-            QSettings reader(desktopFileName, QSettings::IniFormat);
-            reader.beginGroup(QLatin1String("Desktop Entry"));
-            if (reader.contains(QLatin1String("X-GNOME-FullName")))
-                name = reader.value(QLatin1String("X-GNOME-FullName")).toString();
-            else
-                name = reader.value(QLatin1String("Name")).toString();
-            iconName = reader.value(QLatin1String("Icon")).toString();
+            // Localized name
+            QString name;
+            if (desktop->contains(QStringLiteral("X-GNOME-FullName")))
+                name = desktop->localizedValue(QStringLiteral("X-GNOME-FullName")).toString();
+            if (name.isEmpty())
+                name = desktop->name();
 
             beginInsertRows(QModelIndex(), m_apps.size(), m_apps.size());
             auto appItem = new AppItem(this);
-            appItem->id = choice;
-            appItem->preferred = choice == defaultAppId;
+            appItem->id = appId;
+            appItem->preferred = appId == defaultAppId;
             appItem->name = name;
-            appItem->iconName = iconName;
+            appItem->iconName = desktop->iconName();
             m_apps.append(appItem);
             endInsertRows();
         }
