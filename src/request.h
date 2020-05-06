@@ -1,8 +1,7 @@
-/****************************************************************************
- * SPDX-FileCopyrightText: 2020 Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
- *
- * SPDX-License-Identifier: GPL-3.0-or-later
- ***************************************************************************/
+// SPDX-FileCopyrightText: 2020 Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
+// SPDX-FileCopyrightText: 2017 Red Hat, Inc
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
 
 #ifndef REQUEST_H
 #define REQUEST_H

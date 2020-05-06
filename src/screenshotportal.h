@@ -1,4 +1,5 @@
 // SPDX-FileCopyrightText: 2020 Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
+// SPDX-FileCopyrightText: 2018 Red Hat, Inc
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 

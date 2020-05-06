@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2020 Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
+#
+# SPDX-License-Identifier: MIT
+
 if(NOT TARGET Liri::Qt5AccountsService)
     find_package(Qt5AccountsService REQUIRED)
 endif()
