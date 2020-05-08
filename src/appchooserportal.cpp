@@ -2,6 +2,8 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
+#include <QMimeDatabase>
+#include <QMimeType>
 #include <QQmlContext>
 #include <QQuickItem>
 
@@ -33,6 +35,20 @@ quint32 AppChooserPortal::ChooseApplication(const QDBusObjectPath &handle,
     qCDebug(lcAppChooser) << "    options: " << options;
 
     const auto lastChoice = options.value(QStringLiteral("last_choice")).toString();
+    const auto fileName = options.value(QStringLiteral("filename")).toString();
+    const auto uri = options.value(QStringLiteral("uri")).toString();
+    const auto contentType = options.value(QStringLiteral("content_type")).toString();
+
+    QString fileType;
+    if (!contentType.isEmpty()) {
+        QMimeDatabase mimeDb;
+        for (const auto &mimeType : mimeDb.allMimeTypes()) {
+            if (mimeType.inherits(contentType)) {
+                fileType = mimeType.name();
+                break;
+            }
+        }
+    }
 
     auto *model = new AppsModel(this);
     m_models[handle.path()] = model;
@@ -42,6 +58,10 @@ quint32 AppChooserPortal::ChooseApplication(const QDBusObjectPath &handle,
 
     auto *dialog = new QuickDialog(QUrl(QLatin1String("qrc:/qml/AppChooserDialog.qml")));
     dialog->rootContext()->setContextProperty(QLatin1String("appsModel"), model);
+    dialog->rootContext()->setContextProperty(QStringLiteral("fileName"), fileName);
+    dialog->rootContext()->setContextProperty(QStringLiteral("uri"), uri);
+    dialog->rootContext()->setContextProperty(QStringLiteral("contentType"), contentType);
+    dialog->rootContext()->setContextProperty(QStringLiteral("fileType"), fileType);
 
     bool result = dialog->exec() == 0;
 
