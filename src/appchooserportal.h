@@ -28,7 +28,8 @@ public Q_SLOTS:
                        const QStringList &choices);
 
 private:
-    AppsModel *m_appsModel = nullptr;
+    QMap<QString, AppsModel *> m_models;
+    QMap<QString, QString> m_lastChoices;
 };
 
 #endif // APPCHOOSERPORTAL_H

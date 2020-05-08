@@ -15,7 +15,6 @@
 
 AppChooserPortal::AppChooserPortal(QObject *parent)
     : QDBusAbstractAdaptor(parent)
-    , m_appsModel(new AppsModel(this))
 {
 }
 
@@ -33,16 +32,28 @@ quint32 AppChooserPortal::ChooseApplication(const QDBusObjectPath &handle,
     qCDebug(lcAppChooser) << "    choices: " << choices;
     qCDebug(lcAppChooser) << "    options: " << options;
 
-    auto *dialog = new QuickDialog(QUrl(QLatin1String("qrc:/qml/AppChooserDialog.qml")));
-    dialog->rootContext()->setContextProperty(QLatin1String("appsModel"), m_appsModel);
-    if (dialog->exec()) {
-        results.insert(QLatin1String("choice"), dialog->rootObject()->property("selectedAppId").toString());
-        dialog->deleteLater();
-        return 0;
-    }
+    const auto lastChoice = options.value(QStringLiteral("last_choice")).toString();
 
+    auto *model = new AppsModel(this);
+    m_models[handle.path()] = model;
+    m_lastChoices[handle.path()] = lastChoice;
+
+    model->populate(choices, lastChoice);
+
+    auto *dialog = new QuickDialog(QUrl(QLatin1String("qrc:/qml/AppChooserDialog.qml")));
+    dialog->rootContext()->setContextProperty(QLatin1String("appsModel"), model);
+
+    bool result = dialog->exec() == 0;
+
+    if (result)
+        results.insert(QLatin1String("choice"), dialog->rootObject()->property("selectedAppId").toString());
+
+    m_models.remove(handle.path());
+    m_lastChoices.remove(handle.path());
     dialog->deleteLater();
-    return 1;
+    model->deleteLater();
+
+    return result ? 0 : 1;
 }
 
 void AppChooserPortal::UpdateChoices(const QDBusObjectPath &handle,
@@ -52,5 +63,8 @@ void AppChooserPortal::UpdateChoices(const QDBusObjectPath &handle,
     qCDebug(lcAppChooser) << "    handle: " << handle.path();
     qCDebug(lcAppChooser) << "    choices: " << choices;
 
-    m_appsModel->populate(choices);
+    if (m_models.contains(handle.path())) {
+        auto lastChoice = m_lastChoices.value(handle.path());
+        m_models[handle.path()]->populate(choices, lastChoice);
+    }
 }
