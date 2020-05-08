@@ -9,8 +9,9 @@ xdg-desktop-portal-liri
 
 [![License](https://img.shields.io/badge/license-GPLv3.0-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
 [![GitHub release](https://img.shields.io/github/release/lirios/xdg-desktop-portal-liri.svg)](https://github.com/lirios/xdg-desktop-portal-liri)
-[![CI](https://github.com/lirios/xdg-desktop-portal/workflows/CI/badge.svg?branch=develop)](https://github.com/lirios/xdg-desktop-portal/actions?query=workflow%3ACI)
 [![GitHub issues](https://img.shields.io/github/issues/lirios/xdg-desktop-portal-liri.svg)](https://github.com/lirios/xdg-desktop-portal-liri/issues)
+[![CI](https://github.com/lirios/xdg-desktop-portal-liri/workflows/CI/badge.svg?branch=develop)](https://github.com/lirios/xdg-desktop-portal-liri/actions?query=workflow%3ACI)
+[![REUSE status](https://api.reuse.software/badge/github.com/lirios/xdg-desktop-portal-liri)](https://api.reuse.software/info/github.com/lirios/xdg-desktop-portal-liri)
 
 A backend implementation of [xdg-desktop-portal](https://github.com/flatpak/xdg-desktop-portal)
 that is using Qt and Liri.
