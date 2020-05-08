@@ -46,7 +46,7 @@ quint32 AppChooserPortal::ChooseApplication(const QDBusObjectPath &handle,
     bool result = dialog->exec() == 0;
 
     if (result)
-        results.insert(QLatin1String("choice"), dialog->rootObject()->property("selectedAppId").toString());
+        results.insert(QLatin1String("choice"), dialog->rootObject()->property("selectedAppId"));
 
     m_models.remove(handle.path());
     m_lastChoices.remove(handle.path());
