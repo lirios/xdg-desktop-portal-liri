@@ -8,6 +8,7 @@
 
 #include <QDBusAbstractAdaptor>
 #include <QDBusObjectPath>
+#include <QVector>
 
 class FileChooserPortal : public QDBusAbstractAdaptor
 {
