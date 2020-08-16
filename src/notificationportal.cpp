@@ -59,8 +59,10 @@ void NotificationPortal::AddNotification(const QString &app_id,
         notify->setApplicationIcon(notification.value(QLatin1String("icon")).toString());
     if (notification.contains(QLatin1String("priority")))
         notify->setUrgency(convertUrgency(notification.value(QLatin1String("priority")).toString()));
-    //if (notification.contains(QLatin1String("default-action")))
-    //if (notification.contains(QLatin1String("default-action-target")))
+    if (notification.contains(QLatin1String("default-action")))
+        notify->setDefaultAction(notification.value(QLatin1String("default-action")).toString());
+    if (notification.contains(QLatin1String("default-action-target")))
+        notify->setDefaultActionTarget(notification.value(QLatin1String("default-action-target")).toString());
     if (notification.contains(QLatin1String("buttons"))) {
         QList<QVariantMap> buttons;
         QDBusArgument dbusArgument = notification.value(QLatin1String("buttons")).value<QDBusArgument>();
