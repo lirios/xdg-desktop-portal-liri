@@ -1,7 +1,7 @@
 <!--
 SPDX-FileCopyrightText: 2020 Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
 
-SPDX-License-Identifier: GPL-3.0-or-later
+SPDX-License-Identifier: CC0-1.0
 -->
 
 xdg-desktop-portal-liri
