@@ -18,9 +18,8 @@ if(NOT TARGET Liri::Xdg)
     find_package(Liri1Xdg REQUIRED)
 endif()
 
-find_package(PipeWire)
-
-if(TARGET PkgConfig::PipeWire)
+if(LIRI_ENABLE_PIPEWIRE)
+    find_package(PipeWire REQUIRED)
     find_package(Libdrm REQUIRED)
 endif()
 
@@ -104,9 +103,11 @@ liri_add_executable(XdgDesktopPortalLiri
         Liri::Xdg
 )
 
-if(TARGET PkgConfig::PipeWire)
-    liri_extend_target("XdgDesktopPortalLiri"
-        DEFINES SCREENCAST_ENABLED
-        SOURCES "${screencast_SOURCES}"
-        LIBRARIES "PkgConfig::PipeWire;PkgConfig::Libdrm")
+if(LIRI_ENABLE_PIPEWIRE)
+    if(TARGET PkgConfig::PipeWire)
+        liri_extend_target("XdgDesktopPortalLiri"
+            DEFINES SCREENCAST_ENABLED
+            SOURCES "${screencast_SOURCES}"
+            LIBRARIES "PkgConfig::PipeWire;PkgConfig::Libdrm")
+    endif()
 endif()
