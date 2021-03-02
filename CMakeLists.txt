@@ -26,6 +26,7 @@ set(QT_MIN_VERSION "5.10.0")
 include(LiriSetup)
 
 ## Features:
+option(LIRI_ENABLE_PIPEWIRE "Enable pipewire support" OFF)
 option(LIRI_ENABLE_SYSTEMD "Enable systemd support" ON)
 add_feature_info("Liri::Systemd" LIRI_ENABLE_SYSTEMD "Enable systemd support")
 
