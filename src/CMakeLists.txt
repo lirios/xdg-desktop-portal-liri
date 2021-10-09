@@ -110,3 +110,5 @@ if(TARGET PkgConfig::PipeWire)
         SOURCES "${screencast_SOURCES}"
         LIBRARIES "PkgConfig::PipeWire;PkgConfig::Libdrm")
 endif()
+
+liri_finalize_executable("XdgDesktopPortalLiri")

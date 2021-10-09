@@ -8,7 +8,7 @@
 #include <QObject>
 #include <QImage>
 
-#include <LiriWaylandClient/WlrScreencopyV1>
+#include <LiriWaylandClient/WlrScreencopyManagerV1>
 
 class ScreenshotClient : public QObject
 {

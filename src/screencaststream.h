@@ -9,7 +9,7 @@
 #include <QPoint>
 #include <QSize>
 
-#include <LiriWaylandClient/WlrExportDmabufV1>
+#include <LiriWaylandClient/WlrExportDmabufManagerV1>
 
 #include <spa/param/video/format-utils.h>
 #include <spa/param/props.h>

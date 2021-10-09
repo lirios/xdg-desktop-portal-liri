@@ -7,9 +7,9 @@
 
 #include <QObject>
 
-#include <LiriWaylandClient/LiriColorPicker>
-#include <LiriWaylandClient/WlrExportDmabufV1>
-#include <LiriWaylandClient/WlrForeignToplevelManagementV1>
+#include <LiriWaylandClient/LiriColorPickerManager>
+#include <LiriWaylandClient/WlrExportDmabufManagerV1>
+#include <LiriWaylandClient/WlrForeignToplevelManagerV1>
 
 QT_FORWARD_DECLARE_CLASS(QScreen)
 
