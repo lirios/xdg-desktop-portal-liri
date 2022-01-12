@@ -6,10 +6,11 @@
 #define WAYLANDINTEGRATION_H
 
 #include <QObject>
+#include <QMap>
 
-#include <LiriWaylandClient/LiriColorPickerManager>
-#include <LiriWaylandClient/WlrExportDmabufManagerV1>
-#include <LiriWaylandClient/WlrForeignToplevelManagerV1>
+#include <LiriAuroraClient/LiriColorPickerManagerV1>
+#include <LiriAuroraClient/WlrExportDmabufManagerV1>
+#include <LiriAuroraClient/WlrForeignToplevelManagerV1>
 
 QT_FORWARD_DECLARE_CLASS(QScreen)
 
@@ -19,18 +20,18 @@ class WaylandIntegration : public QObject
 {
     Q_OBJECT
 public:
-    typedef struct {
+    struct Stream {
         quint32 nodeId = 0;
         QVariantMap map;
-    } Stream;
+    };
     typedef QVector<Stream> Streams;
 
     explicit WaylandIntegration(QObject *parent = nullptr);
     ~WaylandIntegration();
 
-    LiriColorPickerManager *colorPicker() const;
+    Aurora::Client::LiriColorPickerManagerV1 *colorPicker() const;
 
-    QVector<WlrForeignToplevelHandleV1 *> toplevels() const;
+    QVector<Aurora::Client::WlrForeignToplevelHandleV1 *> toplevels() const;
 
 #ifdef SCREENCAST_ENABLED
     QVariant streams();
@@ -45,20 +46,20 @@ Q_SIGNALS:
     void toplevelsChanged();
 
 private:
-    LiriColorPickerManager *m_colorPicker = nullptr;
-    WlrForeignToplevelManagerV1 *m_toplevelManager = nullptr;
-    QVector<WlrForeignToplevelHandleV1 *> m_toplevels;
+    Aurora::Client::LiriColorPickerManagerV1 *m_colorPicker = nullptr;
+    Aurora::Client::WlrForeignToplevelManagerV1 *m_toplevelManager = nullptr;
+    QVector<Aurora::Client::WlrForeignToplevelHandleV1 *> m_toplevels;
 
-    WlrExportDmabufManagerV1 *m_exportDmabuf = nullptr;
+    Aurora::Client::WlrExportDmabufManagerV1 *m_exportDmabuf = nullptr;
 #ifdef SCREENCAST_ENABLED
-    QMap<QScreen *, WlrExportDmabufFrameV1 *> m_frames;
+    QMap<QScreen *, Aurora::Client::WlrExportDmabufFrameV1 *> m_frames;
     QMap<QScreen *, ScreenCastStream *> m_streams;
 
     bool startStreamingImmediately(QScreen *screen);
 #endif
 
 private Q_SLOTS:
-    void handleToplevel(WlrForeignToplevelHandleV1 *toplevel);
+    void handleToplevel(Aurora::Client::WlrForeignToplevelHandleV1 *toplevel);
 };
 
 #endif // WAYLANDINTEGRATION_H

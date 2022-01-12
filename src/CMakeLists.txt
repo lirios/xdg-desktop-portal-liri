@@ -11,8 +11,8 @@ endif()
 if(NOT TARGET Liri::Notifications)
     find_package(Liri1Notifications REQUIRED)
 endif()
-if(NOT TARGET Liri::WaylandClient)
-    find_package(Liri1WaylandClient REQUIRED)
+if(NOT TARGET Liri::AuroraClient)
+    find_package(Liri1AuroraClient REQUIRED)
 endif()
 if(NOT TARGET Liri::Xdg)
     find_package(Liri1Xdg REQUIRED)
@@ -100,7 +100,7 @@ liri_add_executable(XdgDesktopPortalLiri
         Liri::Qt5AccountsService
         Liri::Qt5GSettings
         Liri::Notifications
-        Liri::WaylandClient
+        Liri::AuroraClient
         Liri::Xdg
 )
 

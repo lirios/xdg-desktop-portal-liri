@@ -31,7 +31,7 @@ And the following modules:
  * [qtaccountsservice](https://github.com/lirios/qtaccountsservice) >= 1.2.0
  * [qtgsettings](https://github.com/lirios/qtgsettings) >= 1.1.0
  * [libliri](https://github.com/lirios/libliri.git)
- * [liri-wayland](https://github.com/lirios/wayland.git)
+ * [aurora-client](https://github.com/lirios/aurora-client)
 
 Optional dependencies:
 

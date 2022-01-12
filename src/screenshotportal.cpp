@@ -120,7 +120,7 @@ quint32 ScreenshotPortal::PickColor(const QDBusObjectPath &handle,
     // Pick color interactively and wait for an answer within 30 seconds
     colorPicker->pickInteractively();
     QEventLoop loop;
-    connect(colorPicker, &LiriColorPickerManager::colorPicked, this, [&](const QColor &color) {
+    connect(colorPicker, &Aurora::Client::LiriColorPickerManagerV1::colorPicked, this, [&](const QColor &color) {
         selectedColor = color;
         loop.quit();
     });

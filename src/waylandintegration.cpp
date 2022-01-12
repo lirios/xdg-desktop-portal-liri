@@ -51,9 +51,9 @@ Q_DECLARE_METATYPE(WaylandIntegration::Streams)
 
 WaylandIntegration::WaylandIntegration(QObject *parent)
     : QObject(parent)
-    , m_colorPicker(new LiriColorPickerManager)
-    , m_toplevelManager(new WlrForeignToplevelManagerV1)
-    , m_exportDmabuf(new WlrExportDmabufManagerV1)
+    , m_colorPicker(new Aurora::Client::LiriColorPickerManagerV1)
+    , m_toplevelManager(new Aurora::Client::WlrForeignToplevelManagerV1)
+    , m_exportDmabuf(new Aurora::Client::WlrExportDmabufManagerV1)
 {
     qDBusRegisterMetaType<WaylandIntegration::Stream>();
     qDBusRegisterMetaType<WaylandIntegration::Streams>();
@@ -69,12 +69,12 @@ WaylandIntegration::~WaylandIntegration()
 #endif
 }
 
-LiriColorPickerManager *WaylandIntegration::colorPicker() const
+Aurora::Client::LiriColorPickerManagerV1 *WaylandIntegration::colorPicker() const
 {
     return m_colorPicker;
 }
 
-QVector<WlrForeignToplevelHandleV1 *> WaylandIntegration::toplevels() const
+QVector<Aurora::Client::WlrForeignToplevelHandleV1 *> WaylandIntegration::toplevels() const
 {
     return m_toplevels;
 }
@@ -112,7 +112,7 @@ bool WaylandIntegration::startStreaming(QScreen *screen)
 
         bool result = false;
 
-        connect(m_exportDmabuf, &WlrExportDmabufManagerV1::activeChanged,
+        connect(m_exportDmabuf, &Aurora::Client::WlrExportDmabufManagerV1::activeChanged,
                 this, [this, screen, &result] {
             qCInfo(lcWaylandIntegration) << "Export dmabuf extension is ready";
             result = startStreamingImmediately(screen);
@@ -120,7 +120,7 @@ bool WaylandIntegration::startStreaming(QScreen *screen)
 
         // Wait until it's active
         QEventLoop loop;
-        connect(m_exportDmabuf, &WlrExportDmabufManagerV1::activeChanged,
+        connect(m_exportDmabuf, &Aurora::Client::WlrExportDmabufManagerV1::activeChanged,
                 &loop, &QEventLoop::quit);
         QTimer::singleShot(3000, &loop, &QEventLoop::quit);
         loop.exec();
@@ -205,11 +205,11 @@ bool WaylandIntegration::startStreamingImmediately(QScreen *screen)
 }
 #endif
 
-void WaylandIntegration::handleToplevel(WlrForeignToplevelHandleV1 *toplevel)
+void WaylandIntegration::handleToplevel(Aurora::Client::WlrForeignToplevelHandleV1 *toplevel)
 {
     m_toplevels.append(toplevel);
 
-    connect(toplevel, &WlrForeignToplevelHandleV1::closed, this, [this, toplevel] {
+    connect(toplevel, &Aurora::Client::WlrForeignToplevelHandleV1::closed, this, [this, toplevel] {
         m_toplevels.removeOne(toplevel);
         Q_EMIT toplevelsChanged();
     });
