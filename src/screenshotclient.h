@@ -8,7 +8,7 @@
 #include <QObject>
 #include <QImage>
 
-#include <LiriWaylandClient/WlrScreencopyManagerV1>
+#include <LiriAuroraClient/WlrScreencopyManagerV1>
 
 class ScreenshotClient : public QObject
 {
@@ -29,7 +29,7 @@ public:
 
     Q_INVOKABLE QString generateFileName() const;
 
-    Q_INVOKABLE void takeScreenshot(What what, bool overlayCursor);
+    Q_INVOKABLE void takeScreenshot(ScreenshotClient::What what, bool overlayCursor);
     Q_INVOKABLE bool saveScreenshot(const QUrl &url) const;
     Q_INVOKABLE void copyToClipboard() const;
 
@@ -43,7 +43,7 @@ private:
     bool m_inProgress = false;
     int m_screensToGo = 0;
     QImage m_finalImage;
-    WlrScreencopyManagerV1 *m_screencopy = nullptr;
+    Aurora::Client::WlrScreencopyManagerV1 *m_screencopy = nullptr;
 
     void done();
 

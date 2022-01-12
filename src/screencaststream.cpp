@@ -182,15 +182,15 @@ void FrameSet::reset()
 
 // ScreenCastStream
 
-ScreenCastStream::ScreenCastStream(WlrExportDmabufFrameV1 *frame, QObject *parent)
+ScreenCastStream::ScreenCastStream(Aurora::Client::WlrExportDmabufFrameV1 *frame, QObject *parent)
     : QObject(parent)
     , m_frame(frame)
     , frameSet(new FrameSet)
 {
-    connect(frame, &WlrExportDmabufFrameV1::frame, this, &ScreenCastStream::handleFrame);
-    connect(frame, &WlrExportDmabufFrameV1::object, this, &ScreenCastStream::handleObject);
-    connect(frame, &WlrExportDmabufFrameV1::ready, this, &ScreenCastStream::handleReady);
-    connect(frame, &WlrExportDmabufFrameV1::cancel, this, &ScreenCastStream::handleCancel);
+    connect(frame, &Aurora::Client::WlrExportDmabufFrameV1::frame, this, &ScreenCastStream::handleFrame);
+    connect(frame, &Aurora::Client::WlrExportDmabufFrameV1::object, this, &ScreenCastStream::handleObject);
+    connect(frame, &Aurora::Client::WlrExportDmabufFrameV1::ready, this, &ScreenCastStream::handleReady);
+    connect(frame, &Aurora::Client::WlrExportDmabufFrameV1::cancel, this, &ScreenCastStream::handleCancel);
 }
 
 ScreenCastStream::~ScreenCastStream()
@@ -339,8 +339,8 @@ void ScreenCastStream::freeFrame()
 }
 
 void ScreenCastStream::handleFrame(const QSize &size, const QPoint &offset,
-                                   WlrExportDmabufFrameV1::BufferFlags bufferFlags,
-                                   WlrExportDmabufFrameV1::FrameFlags flags,
+                                   Aurora::Client::WlrExportDmabufFrameV1::BufferFlags bufferFlags,
+                                   Aurora::Client::WlrExportDmabufFrameV1::FrameFlags flags,
                                    quint32 format, quint64 modifier,
                                    quint32 numObjects)
 {
@@ -379,10 +379,10 @@ void ScreenCastStream::handleReady(quint64 tv_sec, quint32 tv_nsec)
     Q_EMIT frameSetReady();
 }
 
-void ScreenCastStream::handleCancel(WlrExportDmabufFrameV1::CancelReason reason)
+void ScreenCastStream::handleCancel(Aurora::Client::WlrExportDmabufFrameV1::CancelReason reason)
 {
     frameSet->reset();
 
-    if (reason == WlrExportDmabufFrameV1::Permanent)
+    if (reason == Aurora::Client::WlrExportDmabufFrameV1::Permanent)
         qCWarning(lcScreenCast, "Permanent failure");
 }

@@ -9,7 +9,7 @@
 #include <QPoint>
 #include <QSize>
 
-#include <LiriWaylandClient/WlrExportDmabufManagerV1>
+#include <LiriAuroraClient/WlrExportDmabufManagerV1>
 
 #include <spa/param/video/format-utils.h>
 #include <spa/param/props.h>
@@ -50,7 +50,7 @@ class ScreenCastStream : public QObject
     Q_OBJECT
     Q_PROPERTY(quint32 nodeId READ nodeId WRITE setNodeId NOTIFY nodeIdChanged)
 public:
-    explicit ScreenCastStream(WlrExportDmabufFrameV1 *frame, QObject *parent = nullptr);
+    explicit ScreenCastStream(Aurora::Client::WlrExportDmabufFrameV1 *frame, QObject *parent = nullptr);
     ~ScreenCastStream();
 
     quint32 nodeId() const;
@@ -85,19 +85,19 @@ public:
     quint32 m_nodeId = SPA_ID_INVALID;
 
 private:
-    WlrExportDmabufFrameV1 *m_frame = nullptr;
+    Aurora::Client::WlrExportDmabufFrameV1 *m_frame = nullptr;
 
 private Q_SLOTS:
     void handleFrame(const QSize &size, const QPoint &offset,
-                     WlrExportDmabufFrameV1::BufferFlags bufferFlags,
-                     WlrExportDmabufFrameV1::FrameFlags flags,
+                     Aurora::Client::WlrExportDmabufFrameV1::BufferFlags bufferFlags,
+                     Aurora::Client::WlrExportDmabufFrameV1::FrameFlags flags,
                      quint32 format, quint64 modifier,
                      quint32 numObjects);
     void handleObject(quint32 index, quint32 fd, quint32 size,
                       quint32 offset, quint32 stride,
                       quint32 planeIndex);
     void handleReady(quint64 tv_sec, quint32 tv_nsec);
-    void handleCancel(WlrExportDmabufFrameV1::CancelReason reason);
+    void handleCancel(Aurora::Client::WlrExportDmabufFrameV1::CancelReason reason);
 };
 
 #endif // SCREENCASTSTREAM_H
