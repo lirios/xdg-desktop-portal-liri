@@ -5,6 +5,7 @@
 #ifndef SCREENSHOTCLIENT_H
 #define SCREENSHOTCLIENT_H
 
+#if 0
 #include <QObject>
 #include <QImage>
 
@@ -50,5 +51,6 @@ private:
 private Q_SLOTS:
     void handleFrameCopied(const QImage &image);
 };
+#endif
 
 #endif // SCREENSHOTCLIENT_H
