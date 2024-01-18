@@ -14,6 +14,7 @@
 #include "logging_p.h"
 #include "screenshotclient.h"
 
+#if 0
 ScreenshotClient::ScreenshotClient(QObject *parent)
     : QObject(parent)
     , m_screencopy(new Aurora::Client::WlrScreencopyManagerV1())
@@ -129,3 +130,4 @@ void ScreenshotClient::copyToClipboard() const
 {
     qGuiApp->clipboard()->setImage(m_finalImage);
 }
+#endif

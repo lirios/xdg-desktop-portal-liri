@@ -33,7 +33,9 @@ public:
     explicit DesktopPortal(QObject *parent = nullptr);
 
     QQmlEngine *engine() const;
+#if 0
     ScreenshotClient *screenshotClient() const;
+#endif
 
     static DesktopPortal *instance();
 
@@ -55,8 +57,10 @@ private:
     SettingsPortal *m_settings = nullptr;
     WallpaperPortal *m_wallpaper = nullptr;
 
+#if 0
     ScreenshotClient *m_screenshotClient = nullptr;
     ScreenshotImageProvider *m_screenshotImageProvider = nullptr;
+#endif
 };
 
 #endif // DESKTOPPORTAL_H

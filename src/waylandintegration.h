@@ -9,8 +9,6 @@
 #include <QMap>
 
 #include <LiriAuroraClient/LiriColorPickerManagerV1>
-#include <LiriAuroraClient/WlrExportDmabufManagerV1>
-#include <LiriAuroraClient/WlrForeignToplevelManagerV1>
 
 QT_FORWARD_DECLARE_CLASS(QScreen)
 

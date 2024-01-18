@@ -11,9 +11,6 @@ endif()
 if(NOT TARGET Liri::Notifications)
     find_package(Liri1Notifications REQUIRED)
 endif()
-if(NOT TARGET Liri::AuroraClient)
-    find_package(Liri1AuroraClient REQUIRED)
-endif()
 if(NOT TARGET Liri::Xdg)
     find_package(Liri1Xdg REQUIRED)
 endif()
@@ -100,15 +97,14 @@ liri_add_executable(XdgDesktopPortalLiri
         Liri::Qt5AccountsService
         Liri::Qt5GSettings
         Liri::Notifications
-        Liri::AuroraClient
         Liri::Xdg
 )
 
-if(TARGET PkgConfig::PipeWire)
-    liri_extend_target("XdgDesktopPortalLiri"
-        DEFINES SCREENCAST_ENABLED
-        SOURCES "${screencast_SOURCES}"
-        LIBRARIES "PkgConfig::PipeWire;PkgConfig::Libdrm")
-endif()
+#if(TARGET PkgConfig::PipeWire)
+#    liri_extend_target("XdgDesktopPortalLiri"
+#        DEFINES SCREENCAST_ENABLED
+#        SOURCES "${screencast_SOURCES}"
+#        LIBRARIES "PkgConfig::PipeWire;PkgConfig::Libdrm")
+#endif()
 
 liri_finalize_executable("XdgDesktopPortalLiri")

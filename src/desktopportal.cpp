@@ -43,8 +43,10 @@ DesktopPortal::DesktopPortal(QObject *parent)
     , m_screenshot(new ScreenshotPortal(this))
     , m_settings(new SettingsPortal(this))
     , m_wallpaper(new WallpaperPortal(this))
+#if 0
     , m_screenshotClient(new ScreenshotClient(this))
     , m_screenshotImageProvider(new ScreenshotImageProvider())
+#endif
 {
     m_engine->addImageProvider(QStringLiteral("screenshooter"), m_screenshotImageProvider);
     m_engine->rootContext()->setContextProperty(QStringLiteral("Screenshooter"), m_screenshotClient);
@@ -54,9 +56,11 @@ DesktopPortal::DesktopPortal(QObject *parent)
     connect(m_engine, &QQmlEngine::exit,
             QCoreApplication::instance(), &QCoreApplication::exit);
 
+#if 0
     connect(m_screenshotClient, &ScreenshotClient::screenshotDone, this, [this] {
         m_screenshotImageProvider->image = m_screenshotClient->image();
     });
+#endif
 }
 
 QQmlEngine *DesktopPortal::engine() const
@@ -64,10 +68,12 @@ QQmlEngine *DesktopPortal::engine() const
     return m_engine;
 }
 
+#if 0
 ScreenshotClient *DesktopPortal::screenshotClient() const
 {
     return m_screenshotClient;
 }
+#endif
 
 DesktopPortal *DesktopPortal::instance()
 {
